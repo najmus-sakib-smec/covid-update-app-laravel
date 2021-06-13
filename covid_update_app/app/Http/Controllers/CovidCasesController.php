@@ -45,7 +45,8 @@ class CovidCasesController extends Controller
 
                 return redirect('/admin');
             } else {
-                return "Something Wrong";
+                $message = "You've put Wrong Data in one of these fields(infectionRate24hours,infectionRateTotal,recoveryRate,deathRate)";
+                return redirect('/admin')->withMessage("Thanks, message has been sent");;
             }
         }
 

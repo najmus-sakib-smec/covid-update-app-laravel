@@ -160,6 +160,8 @@
                     </div>
                 </div>
             </div>
+
+
             <!-- /.content-header -->
 
             <!-- Main content -->
@@ -172,10 +174,13 @@
 
                         <div class="col-md-4">
 
+                            <x-auth-validation-errors class="mb-4 " :errors="$errors" />
+
                             <div class="card card-primary">
                                 <div class="card-header">
                                     <h3 class="card-title">Bangladesh Cases</h3>
                                 </div>
+
                                 <form id="bdcases" method="POST" action="">
                                     @csrf
                                     <div class=" card-body">
@@ -231,6 +236,8 @@
 
 
                                     </div>
+
+
                                 </form>
 
 

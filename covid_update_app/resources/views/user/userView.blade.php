@@ -36,20 +36,20 @@
 
         <nav class="navbar navbar-expand-sm" style="background-color: #e3f2fd;">
             <a class="navbar-brand" href="#">
-                <img src="{{asset('images\SMEC_LOGO_COLOUR.png')}}" alt="Logo" style="width:250px; padding:10px">
+                <img src="{{asset('images\SMEC_LOGO.png')}}" alt="Logo" style="width:250px; padding:10px">
 
             </a>
-            <div class="container justify-content-center">
+            <div class="container" style="margin-left:410px;">
                 <h3><strong>Covid-19 Updates</strong></h3>
             </div>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Last updated at :{{$bdcases ? $bdcases->updated_at : $bdcases->created_at}}</a>
-                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#"><span>Last updated at :{{$bdcases ? $bdcases->updated_at : $bdcases->created_at}}</span> </a>
+                </li> -->
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="{{route('adminHome')}}">Admin</a>
-                </li>
+                </li> -->
             </ul>
         </nav>
 
@@ -57,6 +57,13 @@
 
             <div class="p-3 border bg-light">
                 <!-- Bangladesh Cases -->
+
+                <div class="content-header">
+                    <div class="col-sm-12">
+                        <h5 style="float:right;">Last updated at : <strong>{{$bdcases ? $bdcases->updated_at : $bdcases->created_at}}</strong></h5>
+                    </div>
+                </div>
+                <hr />
                 <div class="content-header ">
                     <div class="container-fluid ">
 

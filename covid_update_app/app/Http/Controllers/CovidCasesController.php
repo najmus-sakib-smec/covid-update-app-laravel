@@ -21,21 +21,32 @@ class CovidCasesController extends Controller
         // dd($request->all());
         if ($request->has('bdcases')) {
 
-            $bdcases = new bdcases;
+            $validated = $request->validate([
+                'infectionRate' => 'required|numeric',
+                'TotalInfectionRate' => 'required|numeric',
+                'recoveryRate' => 'required|numeric',
+                'deathRate' => 'required|numeric',
+            ]);
 
-            $bdcases->totalInBD = $request->total;
-            $bdcases->detectInlast24hours = $request->detect;
-            $bdcases->deathInlast24hours = $request->death;
-            $bdcases->totalDeath = $request->totalDeath;
-            $bdcases->healedInlast24hours = $request->healed;
-            $bdcases->totalHealed = $request->TotalHealed;
-            $bdcases->infectionRate24hours = $request->infectionRate;
-            $bdcases->infectionRateTotal = $request->TotalInfectionRate;
-            $bdcases->recoveryRate = $request->recoveryRate;
-            $bdcases->deathRate = $request->deathRate;
-            $bdcases->save();
+            if ($validated) {
+                $bdcases = new bdcases;
 
-            return redirect('/');
+                $bdcases->totalInBD = $request->total;
+                $bdcases->detectInlast24hours = $request->detect;
+                $bdcases->deathInlast24hours = $request->death;
+                $bdcases->totalDeath = $request->totalDeath;
+                $bdcases->healedInlast24hours = $request->healed;
+                $bdcases->totalHealed = $request->TotalHealed;
+                $bdcases->infectionRate24hours = $request->infectionRate;
+                $bdcases->infectionRateTotal = $request->TotalInfectionRate;
+                $bdcases->recoveryRate = $request->recoveryRate;
+                $bdcases->deathRate = $request->deathRate;
+                $bdcases->save();
+
+                return redirect('/admin');
+            } else {
+                return "Something Wrong";
+            }
         }
 
         if ($request->has('smecCases')) {
@@ -51,7 +62,7 @@ class CovidCasesController extends Controller
 
             $smec_cases->save();
 
-            return redirect('/');
+            return redirect('/admin');
         }
 
         if ($request->has('globalCases')) {
@@ -65,7 +76,7 @@ class CovidCasesController extends Controller
 
             $global_cases->save();
 
-            return redirect('/');
+            return redirect('/admin');
         }
 
         if ($request->has('govUpdate')) {
@@ -76,7 +87,7 @@ class CovidCasesController extends Controller
 
             $govUpdate->save();
 
-            return redirect('/');
+            return redirect('/admin');
         }
 
         if ($request->has('smecUpdate')) {
@@ -87,7 +98,7 @@ class CovidCasesController extends Controller
 
             $smecUpdate->save();
 
-            return redirect('/');
+            return redirect('/admin');
         }
 
         if ($request->has('contacts')) {
@@ -101,7 +112,7 @@ class CovidCasesController extends Controller
             $contacts->whatsapp = $request->whatsapp;
 
             $contacts->save();
-            return redirect('/');
+            return redirect('/admin');
         }
 
         if ($request->has('links')) {
@@ -114,7 +125,7 @@ class CovidCasesController extends Controller
 
             $links->save();
 
-            return redirect('/');
+            return redirect('/admin');
         }
     }
 
@@ -209,5 +220,70 @@ class CovidCasesController extends Controller
         $link = links::find($id);
 
         return view('linkUpdate', ['links' => $link]);
+    }
+
+
+
+
+
+    public function updateCases(Request $request)
+    {
+
+        if ($request->has('bdupdate')) {
+
+            $bdcases = bdcases::find($request->id);
+
+            $bdcases->totalInBD = $request->total;
+            $bdcases->detectInlast24hours = $request->detect;
+            $bdcases->deathInlast24hours = $request->death;
+            $bdcases->totalDeath = $request->totalDeath;
+            $bdcases->healedInlast24hours = $request->healed;
+            $bdcases->totalHealed = $request->TotalHealed;
+            $bdcases->infectionRate24hours = $request->infectionRate;
+            $bdcases->infectionRateTotal = $request->TotalInfectionRate;
+            $bdcases->recoveryRate = $request->recoveryRate;
+            $bdcases->deathRate = $request->deathRate;
+            $bdcases->save();
+            return redirect('/admin');
+        }
+        if ($request->has('smecupdate')) {
+
+            $smec_cases = smec_cases::find($request->id);
+
+            $smec_cases->totalInSmec = $request->totalInSmec;
+            $smec_cases->detectInlast24hours = $request->detectInlast24hours;
+            $smec_cases->deathInlast24hours = $request->deathInlast24hours;
+            $smec_cases->totalDeath = $request->totalDeath;
+            $smec_cases->healedInlast24hours = $request->healedInlast24hours;
+            $smec_cases->totalHealed = $request->totalHealed;
+
+            $smec_cases->save();
+            return redirect('/admin');
+        }
+        if ($request->has('globalupdate')) {
+
+
+            $global_cases = global_cases::find($request->id);
+
+            $global_cases->totalInWorld = $request->totalInWorld;
+            $global_cases->detectInlast24hours = $request->detectInlast24hours;
+            $global_cases->deathInlast24hours = $request->deathInlast24hours;
+            $global_cases->totalDeath = $request->totalDeath;
+
+            $global_cases->save();
+
+            return redirect('/admin');
+        }
+
+        if ($request->has('govUpdate_update')) {
+
+
+            $govUpdate = gov_Update::find($request->id);
+            $govUpdate->govUpdate = $request->summernote;
+
+            $govUpdate->save();
+
+            return redirect('/admin');
+        }
     }
 }

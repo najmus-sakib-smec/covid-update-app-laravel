@@ -9,6 +9,8 @@ use App\Models\contacts;
 use App\Models\links;
 use Illuminate\Support\Facades\DB;
 
+
+
 class UserViewController extends Controller
 {
 

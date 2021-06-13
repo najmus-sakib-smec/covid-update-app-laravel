@@ -44,7 +44,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{route('adminHome')}}" class="nav-link">Home</a>
+                    <a href="{{route('adminHome')}}" class="nav-link">Dashboard</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{{route('userView')}}" class="nav-link">User View</a>
@@ -55,32 +55,24 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                    <div class="navbar-search-block">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                    <p>Welcome,{{ Auth::user()->name }}</p>
+
                 </li>
 
 
                 <!-- Notifications Dropdown Menu -->
+
+
+
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
+                    <form id="logout" method="POST" action="{{ route('logout')}}">
+                        @csrf
+                        <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-dropdown-link>
+
+                    </form>
                 </li>
 
             </ul>
@@ -90,9 +82,9 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-                <span class="brand-text font-weight-light">Covid-19 Update Dashboard</span>
+            <a href="{{route('adminHome')}}" class="brand-link">
+                <img src="{{asset('images\SMEC_LOGO_COLOUR.png')}}" alt="Logo" style="width:250px; padding:10px">
+                <h5 class="brand-text font-weight-light">Covid-19 Update Dashboard</h5>
             </a>
 
             <!-- Sidebar -->
@@ -108,16 +100,7 @@
                 </div> -->
 
                 <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
@@ -131,36 +114,11 @@
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>
                                     Forms
-                                    <i class="fas fa-angle-left right"></i>
+
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{asset('pages/forms/general.html')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>General Elements</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{asset('pages/forms/advanced.html')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Advanced Elements</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{asset('pages/forms/editors.html')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Editors</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{asset('pages/forms/validation.html')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Validation</p>
-                                    </a>
-                                </li>
-                            </ul>
 
+                        </li>
 
                         <li class="nav-item">
                             <a href="{{route('contacts')}}" class="nav-link">
@@ -218,9 +176,10 @@
                                 <div class="card-header">
                                     <h3 class="card-title">Bangladesh Cases</h3>
                                 </div>
-                                <form id="bdcases" method="POST" action="{{ route('storeCases')}}">
+                                <form id="bdcases" method="POST" action="">
                                     @csrf
                                     <div class=" card-body">
+                                        <input type="hidden" name="id" value={{$bdcases->id}}>
                                         <label for="total">Total affected in Bangladesh</label>
                                         <input class="form-control" id="total" name="total" type="number" placeholder="Total affected in Bangladesh" value="{{$bdcases ? $bdcases->totalInBD : ''}}" required>
                                         <br>
@@ -243,32 +202,34 @@
                                             <div class="form-group row">
                                                 <label for="inputEmail3" class="col-sm-4 col-form-label">Infection rate (24 hrs)</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" type="number" name="infectionRate" id="inputEmail3" placeholder="%" value="{{$bdcases ? $bdcases->infectionRate24hours : ''}}" required>
+                                                    <input class="form-control" name="infectionRate" id="inputEmail3" placeholder="%" value="{{$bdcases ? $bdcases->infectionRate24hours : ''}}" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword3" class="col-sm-4 col-form-label">Infection rate (Total)</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" type="number" name="TotalInfectionRate" id="inputPassword3" placeholder="%" value="{{$bdcases ? $bdcases->infectionRateTotal : ''}}" required>
+                                                    <input class="form-control" name="TotalInfectionRate" id="inputPassword3" placeholder="%" value="{{$bdcases ? $bdcases->infectionRateTotal : ''}}" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword3" class="col-sm-4 col-form-label">Recovery rate</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" type="number" name="recoveryRate" id="inputPassword3" placeholder="%" value="{{$bdcases ? $bdcases->recoveryRate : ''}}" required>
+                                                    <input class="form-control" name="recoveryRate" id="inputPassword3" placeholder="%" value="{{$bdcases ? $bdcases->recoveryRate : ''}}" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword3" class="col-sm-4 col-form-label">Death rate</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" type="number" name="deathRate" id="inputPassword3" placeholder="%" value="{{$bdcases ? $bdcases->deathRate : ''}}" required>
+                                                    <input class="form-control" name="deathRate" id="inputPassword3" placeholder="%" value="{{$bdcases ? $bdcases->deathRate : ''}}" required>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" name="bdcases" class="btn btn-primary">Submit</button>
-                                        <button type="" class="btn btn-primary">Update</button>
+                                        <button type="submit" name="bdcases" class="btn btn-primary" onclick="askForSave('bdcases')">Submit</button>
+                                        <button type="submit" name="bdupdate" class="btn btn-primary" onclick="askForSubmit('bdcases')">Update</button>
+
+
                                     </div>
                                 </form>
 
@@ -284,9 +245,10 @@
                                 <div class="card-header">
                                     <h3 class="card-title">SMEC Cases</h3>
                                 </div>
-                                <form id="smecCases" method="POST" action="{{ route('storeCases')}}">
+                                <form id="smecCases" method="POST" action="">
                                     @csrf
                                     <div class="card-body">
+                                        <input type="hidden" name="id" value={{$smec_cases->id}}>
                                         <label for="totalInSmec">Total No. </label>
                                         <input class="form-control" id="totalInSmec" name="totalInSmec" type="number" placeholder="Total No." value="{{$smec_cases ? $smec_cases->totalInSmec : ''}}" required>
                                         <br>
@@ -309,8 +271,8 @@
                                     </div>
 
                                     <div class="card-footer">
-                                        <button name="smecCases" type="submit" class="btn btn-primary">Submit</button>
-                                        <button type="" class="btn btn-primary">Update</button>
+                                        <button name="smecCases" type="submit" class="btn btn-primary" onclick="askForSave('smecCases')">Submit</button>
+                                        <button type="submit" name="smecupdate" class="btn btn-primary" onclick="askForSubmit('smecCases')">Update</button>
                                     </div>
                                 </form>
 
@@ -328,6 +290,7 @@
                                 <form id="globalcases" method="POST" action="{{ route('storeCases')}}">
                                     @csrf
                                     <div class="card-body">
+                                        <input type="hidden" name="id" value={{$global_cases->id}}>
                                         <label for="totalInWorld">Total Number</label>
                                         <input class="form-control" id="totalInWorld" name="totalInWorld" type="number" placeholder="Total Number" value="{{$global_cases ? $global_cases->totalInWorld : ''}}" required>
                                         <br>
@@ -344,8 +307,8 @@
                                     </div>
 
                                     <div class="card-footer">
-                                        <button name="globalCases" type="submit" class="btn btn-primary">Submit</button>
-                                        <button type="" class="btn btn-primary">Update</button>
+                                        <button name="globalCases" type="submit" class="btn btn-primary" onclick="askForSave('globalcases')">Submit</button>
+                                        <button type="submit" name="globalupdate" class="btn btn-primary" onclick="askForSubmit('globalcases')">Update</button>
                                     </div>
 
                                 </form>
@@ -385,14 +348,14 @@
                                 <div class="card-body">
                                     <form id="govUpdate" method="POST" action="{{ route('storeCases')}}">
                                         @csrf
-
+                                        <input type="hidden" name="id" value={{$govUpdate->id}}>
                                         <textarea id="summernote" name="summernote">
                                         {{$govUpdate ? $govUpdate->govUpdate : ''}}
                                         </textarea>
 
                                         <div class="card-footer">
-                                            <button name="govUpdate" type="submit" class="btn btn-primary">Submit</button>
-                                            <button type="" class="btn btn-primary">Update</button>
+                                            <button name="govUpdate" type="submit" class="btn btn-primary" onclick="askForSave('govUpdate')">Submit</button>
+                                            <button type="submit" name="govUpdate_update" class="btn btn-primary" onclick="askForSubmit('govUpdate')">Update</button>
                                         </div>
                                     </form>
 
@@ -412,13 +375,14 @@
                                 <div class="card-body">
                                     <form id="smecUpdate" method="POST" action="{{ route('storeCases')}}">
                                         @csrf
+                                        <input type="hidden" name="id" value={{$smecUpdate->id}}>
                                         <textarea id="summernotee" name="summernotee">
                                         {{$smecUpdate ? $smecUpdate->smecUpdatee : ''}}
                                         </textarea>
 
                                         <div class="card-footer">
-                                            <button name="smecUpdate" type="submit" class="btn btn-primary">Submit</button>
-                                            <button type="" class="btn btn-primary">Update</button>
+                                            <button name="smecUpdate" type="submit" class="btn btn-primary" onclick="askForSave('smecUpdate')">Submit</button>
+                                            <button type="submit" name="smecUpdate_update" class="btn btn-primary" onclick="askForSubmit('smecUpdate')">Update</button>
                                         </div>
                                     </form>
                                 </div>
@@ -492,7 +456,7 @@
                                         </div>
                                         <div class=" card-footer">
                                             <button type="submit" name="contacts" class="btn btn-success">Submit</button>
-                                            <button type="" class="btn btn-success">Update</button>
+
                                         </div>
                                     </form>
 
@@ -534,7 +498,7 @@
                                         </div>
                                         <div class="card-footer">
                                             <button type="submit" name="links" class="btn btn-success">Submit</button>
-                                            <button type="" class="btn btn-success">Update</button>
+
                                         </div>
 
 
@@ -556,10 +520,10 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong><a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+            <strong><a href="#">SMEC Bangladesh</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.1.0
+                <b>Version</b> 1.0
             </div>
         </footer>
 
@@ -612,6 +576,21 @@
             // CodeMirror
 
         })
+    </script>
+
+    <script>
+        bdcase = document.getElementById("bdcases");
+
+        function askForSave(xyz) {
+            document.getElementById(xyz).action = "{{ route('storeCases')}}";
+
+            document.getElementById(xyz).submit();
+        }
+
+        function askForSubmit(xyz) {
+            document.getElementById(xyz).action = "{{route('updateCases')}}";
+            document.getElementById(xyz).submit();
+        }
     </script>
 </body>
 

@@ -184,7 +184,7 @@
                                 <form id="bdcases" method="POST" action="">
                                     @csrf
                                     <div class=" card-body">
-                                        <input type="hidden" name="id" value={{$bdcases->id}}>
+                                        <input type="hidden" name="id" value={{$bdcases ? $bdcases->id : ' '}}>
                                         <label for="total">Total affected in Bangladesh</label>
                                         <input class="form-control" id="total" name="total" type="number" placeholder="Total affected in Bangladesh" value="{{$bdcases ? $bdcases->totalInBD : ''}}" required>
                                         <br>
@@ -255,7 +255,7 @@
                                 <form id="smecCases" method="POST" action="">
                                     @csrf
                                     <div class="card-body">
-                                        <input type="hidden" name="id" value={{$smec_cases->id}}>
+                                        <input type="hidden" name="id" value={{$smec_cases ? $smec_cases->id :' '}}>
                                         <label for="totalInSmec">Total No. </label>
                                         <input class="form-control" id="totalInSmec" name="totalInSmec" type="number" placeholder="Total No." value="{{$smec_cases ? $smec_cases->totalInSmec : ''}}" required>
                                         <br>
@@ -297,7 +297,7 @@
                                 <form id="globalcases" method="POST" action="{{ route('storeCases')}}">
                                     @csrf
                                     <div class="card-body">
-                                        <input type="hidden" name="id" value={{$global_cases->id}}>
+                                        <input type="hidden" name="id" value={{$global_cases ? $global_cases->id : ''}}>
                                         <label for="totalInWorld">Total Number</label>
                                         <input class="form-control" id="totalInWorld" name="totalInWorld" type="number" placeholder="Total Number" value="{{$global_cases ? $global_cases->totalInWorld : ''}}" required>
                                         <br>
@@ -355,7 +355,7 @@
                                 <div class="card-body">
                                     <form id="govUpdate" method="POST" action="{{ route('storeCases')}}">
                                         @csrf
-                                        <input type="hidden" name="id" value={{$govUpdate->id}}>
+                                        <input type="hidden" name="id" value={{$govUpdate ? $govUpdate->id : ' '}}>
                                         <textarea id="summernote" name="summernote">
                                         {{$govUpdate ? $govUpdate->govUpdate : ''}}
                                         </textarea>
@@ -382,7 +382,7 @@
                                 <div class="card-body">
                                     <form id="smecUpdate" method="POST" action="{{ route('storeCases')}}">
                                         @csrf
-                                        <input type="hidden" name="id" value={{$smecUpdate->id}}>
+                                        <input type="hidden" name="id" value={{$smecUpdate ? $smecUpdate->id : ' '}}>
                                         <textarea id="summernotee" name="summernotee">
                                         {{$smecUpdate ? $smecUpdate->smecUpdatee : ''}}
                                         </textarea>

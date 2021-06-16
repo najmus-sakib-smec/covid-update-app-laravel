@@ -44,7 +44,7 @@
             </div>
             <ul class="navbar-nav ml-auto">
                 <!-- <li class="nav-item">
-                    <a class="nav-link" href="#"><span>Last updated at :{{$bdcases ? $bdcases->updated_at : $bdcases->created_at}}</span> </a>
+                    <a class="nav-link" href="#"><span>Last updated at :</span> </a>
                 </li> -->
 
                 <!-- <li class="nav-item">
@@ -60,7 +60,7 @@
 
                 <div class="content-header">
                     <div class="col-sm-12">
-                        <h5 style="float:right;">Last updated at : <strong>{{$bdcases ? $bdcases->updated_at : $bdcases->created_at}}</strong></h5>
+                        <h5 style="float:right;">Last updated at : <strong>{{$bdcases ? $bdcases ? $bdcases->updated_at : $bdcases->created_at : 'dd-mm-yy'}}</strong></h5>
                     </div>
                 </div>
                 <hr />

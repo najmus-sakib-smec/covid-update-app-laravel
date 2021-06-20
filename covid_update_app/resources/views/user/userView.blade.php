@@ -158,11 +158,11 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>{{$smec_cases ? $smec_cases->detectInlast24hours : '-'}}</h3>
+                                <h3>{{$smec_cases ? $smec_cases->detectInlast24hours : ' '}}</h3>
 
                                 <p><strong>Detected in Last 24 Hours</strong></p>
 
-                                <h5>Total Affected in SMEC - <strong>{{$smec_cases ? $smec_cases->totalInSmec : '-'}}</strong></h5>
+                                <h5>Total Affected in SMEC - <strong>{{$smec_cases ? $smec_cases->totalInSmec : ' '}}</strong></h5>
 
                                 <p></p>
                             </div>
@@ -177,7 +177,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{$smec_cases ? $smec_cases->healedInlast24hours : '-'}}</sup></h3>
+                                <h3>{{$smec_cases ? $smec_cases->healedInlast24hours : ' '}}</sup></h3>
 
                                 <p><strong>Healed in Last 24 Hours</strong></p>
 

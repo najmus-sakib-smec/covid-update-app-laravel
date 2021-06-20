@@ -348,7 +348,7 @@
                             <div class="card card-outline card-info">
                                 <div class="card-header">
                                     <h3 class="card-title">
-                                        Government Updates/Directions
+                                        Government Updates/SMEC Updates
                                     </h3>
                                 </div>
                                 <!-- /.card-header -->
@@ -375,7 +375,7 @@
                             <div class="card card-outline card-info">
                                 <div class="card-header">
                                     <h3 class="card-title">
-                                        SMEC Updates
+                                        News Links
                                     </h3>
                                 </div>
                                 <!-- /.card-header -->

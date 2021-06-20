@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap Example</title>
+    <title>Covid-19 Updates Bangladesh</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -39,8 +39,8 @@
                 <img src="{{asset('images\SMEC_LOGO.png')}}" alt="Logo" style="width:250px; padding:10px">
 
             </a>
-            <div class="container" style="margin-left:410px;">
-                <h3><strong>Covid-19 Updates</strong></h3>
+            <div class="container" style="margin-left:340px;">
+                <h3><strong>Covid-19 Updates Bangladesh</strong></h3>
             </div>
             <ul class="navbar-nav ml-auto">
                 <!-- <li class="nav-item">
@@ -56,7 +56,6 @@
         <section class="content">
 
             <div class="p-3 border bg-light">
-                <!-- Bangladesh Cases -->
 
                 <div class="content-header">
                     <div class="col-sm-12">
@@ -64,80 +63,9 @@
                     </div>
                 </div>
                 <hr />
-                <div class="content-header ">
-                    <div class="container-fluid ">
 
-                        <div class="col-sm-12">
-                            <h3 class="text-center"><strong>SMEC Cases</strong></h3>
-                        </div>
+                <!-- Bangladesh Cases -->
 
-
-                    </div>
-                </div>
-
-                <div class="row justify-content-md-center">
-
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-warning">
-                            <div class="inner">
-                                <h3>{{$smec_cases ? $smec_cases->detectInlast24hours : '-'}}</h3>
-
-                                <p><strong>Detected in Last 24 Hours</strong></p>
-
-                                <h5>Total Affected in SMEC - <strong>{{$smec_cases ? $smec_cases->totalInSmec : '-'}}</strong></h5>
-
-                                <p></p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">Infected <i class="fas fa-virus"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-success">
-                            <div class="inner">
-                                <h3>{{$smec_cases ? $smec_cases->healedInlast24hours : '-'}}</sup></h3>
-
-                                <p><strong>Healed in Last 24 Hours</strong></p>
-
-                                <h5>Total Healed in SMEC - <strong>{{$smec_cases ? $smec_cases->totalHealed : ''}}</strong></h5>
-
-                                <p></p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">Healed <i class="fas fa-running"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-danger">
-                            <div class="inner">
-                                <h3>{{$smec_cases ? $smec_cases->deathInlast24hours : ''}}</h3>
-
-                                <p><strong>Death in Last 24 Hours</strong></p>
-
-                                <h5>Total Death in SMEC - <strong>{{$smec_cases ? $smec_cases->totalDeath : ''}}</strong></h5>
-                                <p></p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">Rest in Peace <i class="fas fa-skull-crossbones"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-
-                    <!-- ./col -->
-                </div>
-
-                <!-- SMEC Cases -->
                 <div class="content-header ">
                     <div class="container-fluid ">
 
@@ -211,6 +139,82 @@
                     <!-- ./col -->
                 </div>
 
+                <!-- SMEC Cases -->
+
+                <div class="content-header ">
+                    <div class="container-fluid ">
+
+                        <div class="col-sm-12">
+                            <h3 class="text-center"><strong>SMEC Cases</strong></h3>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-center">
+
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>{{$smec_cases ? $smec_cases->detectInlast24hours : '-'}}</h3>
+
+                                <p><strong>Detected in Last 24 Hours</strong></p>
+
+                                <h5>Total Affected in SMEC - <strong>{{$smec_cases ? $smec_cases->totalInSmec : '-'}}</strong></h5>
+
+                                <p></p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">Infected <i class="fas fa-virus"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>{{$smec_cases ? $smec_cases->healedInlast24hours : '-'}}</sup></h3>
+
+                                <p><strong>Healed in Last 24 Hours</strong></p>
+
+                                <h5>Total Healed in SMEC - <strong>{{$smec_cases ? $smec_cases->totalHealed : ''}}</strong></h5>
+
+                                <p></p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">Healed <i class="fas fa-running"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>{{$smec_cases ? $smec_cases->deathInlast24hours : ''}}</h3>
+
+                                <p><strong>Death in Last 24 Hours</strong></p>
+
+                                <h5>Total Death in SMEC - <strong>{{$smec_cases ? $smec_cases->totalDeath : ''}}</strong></h5>
+                                <p></p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">Rest in Peace <i class="fas fa-skull-crossbones"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+
+                    <!-- ./col -->
+                </div>
+
+
                 <!-- Global Cases -->
 
                 <div class="content-header ">
@@ -273,7 +277,7 @@
             <div class="content">
                 <div class="row">
                     <div class="col">
-                        <h1 class="text-center">Gov. Updates</h1>
+                        <h1 class="text-center">Government Updates/SMEC Updates</h1>
                         <div class="p-3 border bg-light">
                             <h4>{!! $govUpdate ? $govUpdate->govUpdate : '' !!}</h4>
                         </div>
@@ -282,7 +286,7 @@
 
                     </div>
                     <div class="col">
-                        <h1 class="text-center">SMEC Updates</h1>
+                        <h1 class="text-center">News Links</h1>
                         <div class="p-3 border bg-light">
                             <p>{!!$smecUpdate ? $smecUpdate->smecUpdatee : ''!!}</p>
                         </div>

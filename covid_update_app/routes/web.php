@@ -21,6 +21,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/post', [CovidCasesController::class, 'store'])->name('storeCases');
 
+    Route::post('/check', [CovidCasesController::class, 'check'])->name('check');
+
+    Route::post('/countryToggle', [CovidCasesController::class, 'countryToggle'])->name('countryToggle');
+
     Route::get('/admin', [CovidCasesController::class, 'index'])->name('adminHome');
 
     Route::get('/delete/{id}', [CovidCasesController::class, 'deleteContact'])->name('deleteContact');
@@ -41,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/updateLink/{id}', [CovidCasesController::class, 'updateLink'])->name('updateLink');
 
     Route::post('/updateLink', [CovidCasesController::class, 'updateLink'])->name('updateLink');
+
+    Route::post('/vaccination', [CovidCasesController::class, 'vaccinationStatus'])->name('vaccination');
 });
 
 // User Interface

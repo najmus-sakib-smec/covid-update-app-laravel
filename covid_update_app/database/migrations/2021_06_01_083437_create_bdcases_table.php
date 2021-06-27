@@ -15,6 +15,7 @@ class CreateBdcasesTable extends Migration
     {
         Schema::create('bdcases', function (Blueprint $table) {
             $table->id();
+            $table->string('country_case_name');
             $table->integer('totalInBD');
             $table->integer('detectInlast24hours');
             $table->integer('deathInlast24hours');

@@ -28,6 +28,9 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -36,21 +39,17 @@
 
         <nav class="navbar navbar-expand-sm" style="background-color: #e3f2fd;">
             <a class="navbar-brand" href="#">
-                <img src="{{asset('images\SMEC_LOGO.png')}}" alt="Logo" style="width:250px; padding:10px">
+                <img src="{{asset('images\SJ_SJ_FC_RGB.png')}}" alt="Logo" style="width:200px; padding:10px">
+                <img src="{{asset('images\SMEC_LOGO.png')}}" alt="Logo" style="width:200px; padding:10px">
+
 
             </a>
-            <div class="container" style="margin-left:340px;">
-                <h3><strong>Covid-19 Updates Bangladesh</strong></h3>
-            </div>
-            <ul class="navbar-nav ml-auto">
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="#"><span>Last updated at :</span> </a>
-                </li> -->
 
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="{{route('adminHome')}}">Admin</a>
-                </li> -->
-            </ul>
+            <div style="border-left: 2px dotted black;height: 100px;position: relative;"></div>
+            <div class="container" style="margin-left:0px;">
+                <h4 style="font-family: 'DM Sans', sans-serif; padding:20px;"><strong>Covid-19 Updates</strong></h4>
+            </div>
+
         </nav>
 
         <section class="content">
@@ -59,42 +58,143 @@
 
                 <div class="content-header">
                     <div class="col-sm-12">
-                        <h5 style="float:right;">Last updated at : <strong>{{$bdcases ? $bdcases ? $bdcases->updated_at : $bdcases->created_at : 'dd-mm-yy'}}</strong></h5>
+                        <h4 style="float:right;"> Cases Last updated at : <strong>{{$bdcases ? $bdcases ? $bdcases->updated_at : $bdcases->created_at : 'dd-mm-yy'}}</strong> || Vaccination status Last updated at : <strong>{{$vac ? $vac ? $vac->updated_at : $vac->created_at : 'dd-mm-yy'}}</strong></h4>
                     </div>
                 </div>
                 <hr />
 
                 <!-- Bangladesh Cases -->
 
+
+                <div class="jumbotron jumbotron-fluid">
+
+
+
+
+                    <!-- SMEC Cases -->
+
+                    <div class="content-header ">
+                        <div class="container-fluid ">
+
+                            <div class="col-sm-12">
+                                <h3 class="text-center"><strong>SMEC Cases</strong></h3>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-md-center">
+
+
+
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>{{$smec_cases ? $smec_cases->detectInlast24hours : ' '}}</h3>
+
+                                    <p><strong>Detected in Last 24 Hours</strong></p>
+                                    <h4><strong>{{$smec_cases ? $smec_cases->totalInSmec : ' '}}</strong></h4>
+                                    <p>Total Affected in SMEC </p>
+
+
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-virus"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">Infected</a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{$smec_cases ? $smec_cases->healedInlast24hours : ' '}}</sup></h3>
+
+                                    <p><strong>Healed in Last 24 Hours</strong></p>
+
+                                    <h4><strong>{{$smec_cases ? $smec_cases->totalHealed : ''}}</strong></h4>
+
+                                    <p>Total Healed in SMEC </p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-running"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">Healed</i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3>{{$smec_cases ? $smec_cases->deathInlast24hours : ''}}</h3>
+
+                                    <p><strong>Death in Last 24 Hours</strong></p>
+
+                                    <h4><strong>{{$smec_cases ? $smec_cases->totalDeath : ''}}</strong></h4>
+                                    <p>Total Death in SMEC</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-skull-crossbones"></i>
+                                </div>
+                                <a href="#" class="small-box-footer">Rest in Peace </a>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <!-- ./col -->
+
+                        <!-- ./col -->
+                    </div>
+
+                </div>
+
+
+                @foreach($bb as $item)
+
+                @if($item[0] || $item[1])
                 <div class="content-header ">
                     <div class="container-fluid ">
 
                         <div class="col-sm-12">
-                            <h3 class="text-center"><strong>Bangladesh Cases</strong></h3>
+                            <h3 class="text-center"> <strong>{{$item[0] ? $item[0]->country_case_name : $item[1]->country_name}} Cases</strong></h3>
+                            <!-- <img src="{{asset('images\bangladesh.png')}}" alt="Logo" style="width:40px;"> -->
                         </div>
 
 
                     </div>
                 </div>
 
+
+
                 <div class="row justify-content-md-center">
+
+
 
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>{{$bdcases ? $bdcases->detectInlast24hours : ''}}</h3>
+                                <h3>{{$item[0] ? $item[0]->detectInlast24hours : ''}}</h3>
 
                                 <p><strong>Detected in Last 24 Hours</strong></p>
+                                <h4><strong>{{$item[0] ? $item[0]->totalInBD : ''}}</strong></h4>
+                                <p>Total Affected in {{$item[0] ? $item[0]->country_case_name : ''}}</p>
 
-                                <h5>Total Affected in Bangladesh - <strong>{{$bdcases ? $bdcases->totalInBD : ''}}</strong></h5>
 
-                                <p></p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
+                                <i class="fas fa-virus"></i>
                             </div>
-                            <a href="#" class="small-box-footer">Infected <i class="fas fa-virus"></i></a>
+                            <a href="#" class="small-box-footer"><strong>Infected</strong></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -102,18 +202,18 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{$bdcases ? $bdcases->healedInlast24hours : ''}}</sup></h3>
+                                <h3>{{$item[0] ? $item[0]->healedInlast24hours : ''}}</sup></h3>
 
                                 <p><strong>Healed in Last 24 Hours</strong></p>
+                                <h4><strong>{{$item[0] ? $item[0]->totalHealed : ''}}</strong></h4>
+                                <p>Total Healed in {{$item[0] ? $item[0]->country_case_name : ''}}</p>
 
-                                <h5>Total Healed in Bangladesh - <strong>{{$bdcases ? $bdcases->totalHealed : ''}}</strong></h5>
 
-                                <p></p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
+                                <i class="fas fa-running"></i>
                             </div>
-                            <a href="#" class="small-box-footer">Healed <i class="fas fa-running"></i></a>
+                            <a href="#" class="small-box-footer"><strong>Healed</strong> </a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -121,99 +221,44 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>{{$bdcases ? $bdcases->deathInlast24hours : ''}}</h3>
+                                <h3>{{$item[0] ? $item[0]->deathInlast24hours : ''}}</h3>
 
                                 <p><strong>Death in Last 24 Hours</strong></p>
+                                <h4><strong>{{$item[0] ? $item[0]->totalDeath : ''}}</strong></h4>
+                                <p>Total Death in {{$item[0] ? $item[0]->country_case_name : ''}} </p>
 
-                                <h5>Total Death in Bangladesh - <strong>{{$bdcases ? $bdcases->totalDeath : ''}}</strong></h5>
-                                <p></p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
+                                <i class="fas fa-skull-crossbones"></i>
                             </div>
-                            <a href="#" class="small-box-footer">Rest in Peace <i class="fas fa-skull-crossbones"></i></a>
+                            <a href="#" class="small-box-footer"><strong> Rest in Peace </strong></a>
                         </div>
                     </div>
-                    <!-- ./col -->
 
-                    <!-- ./col -->
-                </div>
-
-                <!-- SMEC Cases -->
-
-                <div class="content-header ">
-                    <div class="container-fluid ">
-
-                        <div class="col-sm-12">
-                            <h3 class="text-center"><strong>SMEC Cases</strong></h3>
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <div class="row justify-content-md-center">
 
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-warning">
+                        <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>{{$smec_cases ? $smec_cases->detectInlast24hours : ' '}}</h3>
 
-                                <p><strong>Detected in Last 24 Hours</strong></p>
 
-                                <h5>Total Affected in SMEC - <strong>{{$smec_cases ? $smec_cases->totalInSmec : ' '}}</strong></h5>
-
-                                <p></p>
+                                <p>1st Dose Taken-<strong>{{$item[1] ? $item[1]->first_dose_taken : ''}}</strong></p>
+                                <p>Both Dose Taken-<strong>{{$item[1] ? $item[1]->both_dose_taken : ''}}</strong></p>
+                                <p>Above 45 Years-<strong>{{$item[1] ? $item[1]->above_45 : ''}}</strong></p>
+                                <p>Below 45 Years-<strong>{{$item[1] ? $item[1]->below_45 : ''}}</strong></p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
+                                <i class="fas fa-syringe"></i>
                             </div>
-                            <a href="#" class="small-box-footer">Infected <i class="fas fa-virus"></i></a>
+                            <a href="#" class="small-box-footer">Vaccination Status</a>
                         </div>
                     </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-success">
-                            <div class="inner">
-                                <h3>{{$smec_cases ? $smec_cases->healedInlast24hours : ' '}}</sup></h3>
 
-                                <p><strong>Healed in Last 24 Hours</strong></p>
 
-                                <h5>Total Healed in SMEC - <strong>{{$smec_cases ? $smec_cases->totalHealed : ''}}</strong></h5>
 
-                                <p></p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">Healed <i class="fas fa-running"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-danger">
-                            <div class="inner">
-                                <h3>{{$smec_cases ? $smec_cases->deathInlast24hours : ''}}</h3>
-
-                                <p><strong>Death in Last 24 Hours</strong></p>
-
-                                <h5>Total Death in SMEC - <strong>{{$smec_cases ? $smec_cases->totalDeath : ''}}</strong></h5>
-                                <p></p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">Rest in Peace <i class="fas fa-skull-crossbones"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-
-                    <!-- ./col -->
                 </div>
-
+                @endif
+                @endforeach
 
                 <!-- Global Cases -->
 
@@ -240,7 +285,7 @@
                                 <h5>Total Affected in the World - <strong>{{$global_cases ? $global_cases->totalInWorld : ''}}</strong></h5>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
+                                <i class="fas fa-virus"></i>
                             </div>
                             <a href="#" class="small-box-footer">Infected <i class="fas fa-virus"></i></a>
                         </div>
@@ -259,7 +304,7 @@
                                 <h5>Total Death in the World - <strong>{{$global_cases ? $global_cases->totalDeath : ''}}</strong></h5>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
+                                <i class="fas fa-skull-crossbones"></i>
                             </div>
                             <a href="#" class="small-box-footer">Rest in Peace <i class="fas fa-skull-crossbones"></i></a>
                         </div>
@@ -268,11 +313,14 @@
 
                     <!-- ./col -->
                 </div>
+
+
+
             </div>
         </section>
         <hr />
-        <hr />
-        <section>
+        <!-- <hr /> -->
+        <!-- <section>
 
             <div class="content">
                 <div class="row">
@@ -298,11 +346,11 @@
 
 
 
-        </section>
+        </section> -->
 
-        <hr />
-        <hr />
-        <section>
+        <!-- <hr />
+        <hr /> -->
+        <!-- <section>
 
             <div class="content">
                 <div class="row">
@@ -384,8 +432,8 @@
 
 
 
-        </section>
-        <hr />
+        </section> -->
+        <!-- <hr /> -->
         <footer class="bg-light text-center text-lg-start">
 
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">

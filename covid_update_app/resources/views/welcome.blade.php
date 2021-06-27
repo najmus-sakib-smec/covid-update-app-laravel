@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Covid-19 Update Dashboard || SMEC</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -76,6 +77,7 @@
                 </li>
 
             </ul>
+
         </nav>
         <!-- /.navbar -->
 
@@ -161,7 +163,7 @@
                 </div>
             </div>
 
-
+            <hr />
             <!-- /.content-header -->
 
             <!-- Main content -->
@@ -185,6 +187,21 @@
                                     @csrf
                                     <div class=" card-body">
                                         <input type="hidden" name="id" value={{$bdcases ? $bdcases->id : ' '}}>
+
+                                        <div class="form-group">
+                                            <label for="country_cases">Country:</label>
+                                            <select class="form-control" id="country_cases" name="country_cases" onChange="toggleCountryValue()">
+                                                <option value="Bangladesh">Bangladesh</option>
+                                                <option value="Afghanistan">Afghanistan</option>
+                                                <option value="Georgia">Georgia</option>
+                                                <option value="India">India</option>
+                                                <option value="Kazaksthan">Kazaksthan</option>
+                                                <option value="Nepal">Nepal</option>
+                                                <option value="Pakistan">Pakistan</option>
+                                                <option value="Srilanka">Srilanka</option>
+                                                <option value="Tajikisthan">Tajikisthan</option>
+                                            </select>
+                                        </div>
                                         <label for="total">Total affected in Bangladesh</label>
                                         <input class="form-control" id="total" name="total" type="number" placeholder="Total affected in Bangladesh" value="{{$bdcases ? $bdcases->totalInBD : ''}}" required>
                                         <br>
@@ -205,27 +222,27 @@
                                         <br>
                                         <div class="form-horizontal">
                                             <div class="form-group row">
-                                                <label for="inputEmail3" class="col-sm-4 col-form-label">Infection rate (24 hrs)</label>
+                                                <label for="infectionRate" class="col-sm-4 col-form-label">Infection rate (24 hrs)</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" name="infectionRate" id="inputEmail3" placeholder="%" value="{{$bdcases ? $bdcases->infectionRate24hours : ''}}" required>
+                                                    <input class="form-control" name="infectionRate" id="infectionRate" placeholder="%" value="{{$bdcases ? $bdcases->infectionRate24hours : ''}}" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputPassword3" class="col-sm-4 col-form-label">Infection rate (Total)</label>
+                                                <label for="TotalInfectionRate" class="col-sm-4 col-form-label">Infection rate (Total)</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" name="TotalInfectionRate" id="inputPassword3" placeholder="%" value="{{$bdcases ? $bdcases->infectionRateTotal : ''}}" required>
+                                                    <input class="form-control" name="TotalInfectionRate" id="TotalInfectionRate" placeholder="%" value="{{$bdcases ? $bdcases->infectionRateTotal : ''}}" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputPassword3" class="col-sm-4 col-form-label">Recovery rate</label>
+                                                <label for="recoveryRate" class="col-sm-4 col-form-label">Recovery rate</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" name="recoveryRate" id="inputPassword3" placeholder="%" value="{{$bdcases ? $bdcases->recoveryRate : ''}}" required>
+                                                    <input class="form-control" name="recoveryRate" id="recoveryRate" placeholder="%" value="{{$bdcases ? $bdcases->recoveryRate : ''}}" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputPassword3" class="col-sm-4 col-form-label">Death rate</label>
+                                                <label for="deathRate" class="col-sm-4 col-form-label">Death rate</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" name="deathRate" id="inputPassword3" placeholder="%" value="{{$bdcases ? $bdcases->deathRate : ''}}" required>
+                                                    <input class="form-control" name="deathRate" id="deathRate" placeholder="%" value="{{$bdcases ? $bdcases->deathRate : ''}}" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -316,6 +333,83 @@
                                     <div class="card-footer">
                                         <button name="globalCases" type="submit" class="btn btn-primary" onclick="askForSave('globalcases')">Submit</button>
                                         <button type="submit" name="globalupdate" class="btn btn-primary" onclick="askForSubmit('globalcases')">Update</button>
+                                    </div>
+
+                                </form>
+
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </section>
+            <hr />
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Vaccination Status</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <section class="content">
+
+
+                <div class="container-fluid">
+                    <div class="row justify-content-md-center">
+
+                        <div class="col-md-4">
+
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <h3 class="card-title">Vaccination Status</h3>
+                                </div>
+
+                                <form id="vaccination" method="POST" action="{{ route('vaccination')}}">
+                                    @csrf
+                                    <div class="card-body">
+                                        <input type="hidden" name="id" value={{$vaccination ? $vaccination->id : ''}}>
+                                        <div class="form-group">
+                                            <label for="country">Country:</label>
+                                            <select class="form-control" id="country" name="country" onChange="toggleValue()">
+                                                <option value="Bangladesh">Bangladesh</option>
+                                                <option value="Afghanistan">Afghanistan</option>
+                                                <option value="Georgia">Georgia</option>
+                                                <option value="India">India</option>
+                                                <option value="Kazaksthan">Kazaksthan</option>
+                                                <option value="Nepal">Nepal</option>
+                                                <option value="Pakistan">Pakistan</option>
+                                                <option value="Srilanka">Srilanka</option>
+                                                <option value="Tajikisthan">Tajikisthan</option>
+                                            </select>
+                                        </div>
+                                        <label for="firstdose">1st Dose Taken</label>
+                                        <input class="form-control" id="firstdose" name="firstdose" type="number" placeholder="1st Dose Taken" value="{{$vaccination ? $vaccination->first_dose_taken : ''}}" required>
+                                        <br>
+                                        <label for="bothdose">Both Dose Taken</label>
+                                        <input class="form-control" id="bothdose" name="bothdose" type="number" placeholder="Both Dose Taken" value="{{$vaccination ? $vaccination->both_dose_taken : ''}}" required>
+                                        <br>
+                                        <label for="above45">Above 45 Years</label>
+                                        <input class="form-control" id="above45" name="above45" type="number" placeholder="Above 45 Years" value="{{$vaccination ? $vaccination->above_45 : ''}}" required>
+                                        <br>
+                                        <label for="below45">Below 45 Years</label>
+                                        <input class="form-control" id="below45" name="below45" type="number" placeholder="Below 45 Years" value="{{$vaccination ? $vaccination->below_45 : ''}}" required>
+                                        <br>
+
+
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <button name="vaccinationSubmit" type="submit" class="btn btn-info" onclick="askForSaveV('vaccination')">Submit</button>
+                                        <button type="submit" name="vaccinationUpdate" class="btn btn-info" onclick="askForSubmitV('vaccination')">Update</button>
                                     </div>
 
                                 </form>
@@ -595,6 +689,95 @@
         }
 
         function askForSubmit(xyz) {
+            document.getElementById(xyz).action = "{{route('updateCases')}}";
+            document.getElementById(xyz).submit();
+        }
+    </script>
+
+    <script>
+        function toggleValue() {
+            var x = document.getElementById("country").value;
+            // console.log(x);
+
+
+            $(function() {
+                $.ajax({
+                    method: "post",
+                    url: "check",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "country": x
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        $.each(response, function(index, value) {
+                            console.log(index);
+                            document.getElementById("firstdose").value = value[0] ? value[0]['first_dose_taken'] : '';
+                            document.getElementById("bothdose").value = value[0] ? value[0]['both_dose_taken'] : '';
+                            document.getElementById("above45").value = value[0] ? value[0]['above_45'] : '';
+                            document.getElementById("below45").value = value[0] ? value[0]['below_45'] : '';
+                        });
+
+                    }
+                });
+            });
+
+
+
+        }
+
+
+        function toggleCountryValue() {
+
+            var x = document.getElementById("country_cases").value;
+            // console.log(x);
+
+
+            $(function() {
+                $.ajax({
+                    method: "post",
+                    url: "countryToggle",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "country_cases": x
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        $.each(response, function(index, value) {
+                            console.log(index);
+                            document.getElementById("total").value = value[0] ? value[0]['totalInBD'] : '';
+                            document.getElementById("detect").value = value[0] ? value[0]['detectInlast24hours'] : '';
+                            document.getElementById("death").value = value[0] ? value[0]['deathInlast24hours'] : '';
+                            document.getElementById("totalDeath").value = value[0] ? value[0]['totalDeath'] : '';
+                            document.getElementById("healed").value = value[0] ? value[0]['healedInlast24hours'] : '';
+                            document.getElementById("TotalHealed").value = value[0] ? value[0]['totalHealed'] : '';
+                            document.getElementById("infectionRate").value = value[0] ? value[0]['infectionRate24hours'] : '';
+                            document.getElementById("TotalInfectionRate").value = value[0] ? value[0]['infectionRateTotal'] : '';
+                            document.getElementById("recoveryRate").value = value[0] ? value[0]['recoveryRate'] : '';
+                            document.getElementById("deathRate").value = value[0] ? value[0]['deathRate'] : '';
+
+                        });
+
+                    }
+                });
+            });
+
+
+
+        }
+    </script>
+
+
+    <script>
+        vaccination = document.getElementById("vaccination");
+
+        function askForSaveV(xyz) {
+            document.getElementById(xyz).action = "{{ route('vaccination')}}";
+
+            document.getElementById(xyz).submit();
+        }
+
+        function askForSubmitV(xyz) {
             document.getElementById(xyz).action = "{{route('updateCases')}}";
             document.getElementById(xyz).submit();
         }

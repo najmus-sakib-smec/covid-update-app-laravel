@@ -11,6 +11,7 @@ use App\Models\gov_Update;
 use App\Models\smec_Update;
 use App\Models\contacts;
 use App\Models\links;
+use App\Models\vaccination_status;
 
 use Illuminate\Support\Facades\DB;
 
@@ -31,6 +32,7 @@ class CovidCasesController extends Controller
             if ($validated) {
                 $bdcases = new bdcases;
 
+                $bdcases->country_case_name = $request->country_cases;
                 $bdcases->totalInBD = $request->total;
                 $bdcases->detectInlast24hours = $request->detect;
                 $bdcases->deathInlast24hours = $request->death;
@@ -44,10 +46,8 @@ class CovidCasesController extends Controller
                 $bdcases->save();
 
                 return redirect('/admin');
-            } else {
-                $message = "You've put Wrong Data in one of these fields(infectionRate24hours,infectionRateTotal,recoveryRate,deathRate)";
-                return redirect('/admin')->withMessage("Thanks, message has been sent");
-            }
+            } else
+                return redirect('/admin');
         }
 
         if ($request->has('smecCases')) {
@@ -127,16 +127,31 @@ class CovidCasesController extends Controller
             $links->save();
 
             return redirect('/admin');
-        }
+        } else
+            return redirect('/admin');
     }
 
+    public function check(Request $request)
+    {
+
+        $vaccination = DB::table('vaccination_status')->where('country_name', '=', $request['country'])->latest('id')->get();
+        return response()->json([$vaccination]);
+    }
+
+
+    public function countryToggle(Request $request)
+    {
+
+        $country_cases = DB::table('bdcases')->where('country_case_name', '=', $request['country_cases'])->latest('id')->get();
+        return response()->json([$country_cases]);
+    }
 
     public function index()
     {
         $data = contacts::all();
 
         $contacts = DB::table('contacts')->latest('id')->first();
-        $bdcases = DB::table('bdcases')->latest('id')->first();
+
         $smec_cases = DB::table('smec_cases')->latest('id')->first();
         $global_cases = DB::table('global_cases')->latest('id')->first();
         $govUpdate = DB::table('gov_update')->latest('id')->first();
@@ -144,8 +159,14 @@ class CovidCasesController extends Controller
         $links = DB::table('links')->latest('id')->first();
 
 
+        $bdcases = DB::table('bdcases')->where('country_case_name', '=', 'Bangladesh')->latest('id')->first();
+
+        $vaccination = DB::table('vaccination_status')->where('country_name', '=', 'Bangladesh')->latest('id')->first();
+
+
+
         // dd($latest);
-        return view('welcome', ['links' => $links, 'contacts' => $contacts, 'bdcases' => $bdcases, 'smec_cases' => $smec_cases, 'global_cases' => $global_cases, 'govUpdate' => $govUpdate, 'smecUpdate' => $smecUpdate]);
+        return view('welcome', ['vaccination' => $vaccination, 'links' => $links, 'contacts' => $contacts, 'bdcases' => $bdcases, 'smec_cases' => $smec_cases, 'global_cases' => $global_cases, 'govUpdate' => $govUpdate, 'smecUpdate' => $smecUpdate]);
     }
 
     public function contacts()
@@ -225,8 +246,6 @@ class CovidCasesController extends Controller
 
 
 
-
-
     public function updateCases(Request $request)
     {
 
@@ -287,6 +306,54 @@ class CovidCasesController extends Controller
             return redirect('/admin');
         }
 
+
+        if ($request->has('vaccinationUpdate')) {
+
+            $vaccineUpdate = vaccination_status::find($request->id);
+
+
+            $vaccineUpdate->first_dose_taken = $request->firstdose;
+            $vaccineUpdate->both_dose_taken = $request->bothdose;
+            $vaccineUpdate->above_45 = $request->above45;
+            $vaccineUpdate->below_45 = $request->below45;
+
+            $vaccineUpdate->save();
+
+            return redirect('/admin');
+        }
+
         return redirect('/admin');
+    }
+
+
+    public function vaccinationStatus(Request $request)
+    {
+
+        if ($request->has('vaccinationSubmit')) {
+
+            $validated = $request->validate([
+                'country' => 'required|string',
+                'firstdose' => 'required|numeric',
+                'bothdose' => 'required|numeric',
+                'above45' => 'required|numeric',
+                'below45' => 'required|numeric',
+            ]);
+
+            if ($validated) {
+                $vaccination_status = new vaccination_status;
+
+                $vaccination_status->country_name = $request->country;
+                $vaccination_status->first_dose_taken = $request->firstdose;
+                $vaccination_status->both_dose_taken = $request->bothdose;
+                $vaccination_status->above_45 = $request->above45;
+                $vaccination_status->below_45 = $request->below45;
+
+                $vaccination_status->save();
+
+                return redirect('/admin');
+            }
+        }
+
+        return redirect('/admin')->withMessage("Error");
     }
 }

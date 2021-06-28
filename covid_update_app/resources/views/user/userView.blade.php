@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Covid-19 Updates Bangladesh</title>
+    <title>SACA Covid-19 Updates</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -47,7 +47,7 @@
 
             <div style="border-left: 2px dotted black;height: 100px;position: relative;"></div>
             <div class="container" style="margin-left:0px;">
-                <h4 style="font-family: 'DM Sans', sans-serif; padding:20px;"><strong>Covid-19 Updates</strong></h4>
+                <h4 style="font-family: 'DM Sans', sans-serif; padding:20px;"><strong>SACA Covid-19 Updates</strong></h4>
             </div>
 
         </nav>
@@ -88,9 +88,9 @@
 
 
 
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-2 col-6">
                             <!-- small box -->
-                            <div class="small-box bg-warning">
+                            <div class="small-box bg-primary">
                                 <div class="inner">
                                     <h3>{{$smec_cases ? $smec_cases->detectInlast24hours : ' '}}</h3>
 
@@ -106,8 +106,27 @@
                                 <a href="#" class="small-box-footer">Infected</a>
                             </div>
                         </div>
+
+                        <div class="col-lg-2 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>{{$smec_cases ? $smec_cases->activeCasesSmec : ' '}}</h3>
+
+                                    <h2><strong>Active Cases</strong></h2>
+                                    <!-- <h4><strong>----------------------------</strong></h4> -->
+                                    <p>Last Updated at : {{$smec_cases ? $smec_cases->created_at : '-'}}</p>
+
+
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-virus"></i>
+                                </div>
+                                <a href="#" class="small-box-footer"><strong>Active Cases</strong></a>
+                            </div>
+                        </div>
                         <!-- ./col -->
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-2 col-6">
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
@@ -126,7 +145,7 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-2 col-6">
                             <!-- small box -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
@@ -179,11 +198,11 @@
 
 
 
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-2 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-warning">
+                        <div class="small-box bg-primary">
                             <div class="inner">
-                                <h3>{{$item[0] ? $item[0]->detectInlast24hours : ''}}</h3>
+                                <h3>{{$item[0] ? $item[0]->detectInlast24hours : 'Not Provided'}}</h3>
 
                                 <p><strong>Detected in Last 24 Hours</strong></p>
                                 <h4><strong>{{$item[0] ? $item[0]->totalInBD : ''}}</strong></h4>
@@ -197,12 +216,32 @@
                             <a href="#" class="small-box-footer"><strong>Infected</strong></a>
                         </div>
                     </div>
+
+
+                    <div class="col-lg-2 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>{{$item[0] ? $item[0]->activeCases : 'Not Provided'}}</h3>
+
+                                <h2><strong>Active Cases</strong></h2>
+                                <!-- <h4><strong>----------------------------</strong></h4> -->
+                                <p>Last Updated at : {{$item[0] ? $item[0]->created_at : '-'}}</p>
+
+
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-virus"></i>
+                            </div>
+                            <a href="#" class="small-box-footer"><strong>Active Cases</strong></a>
+                        </div>
+                    </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-2 col-6">
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{$item[0] ? $item[0]->healedInlast24hours : ''}}</sup></h3>
+                                <h3>{{$item[0] ? $item[0]->healedInlast24hours : 'Not Provided'}}</sup></h3>
 
                                 <p><strong>Healed in Last 24 Hours</strong></p>
                                 <h4><strong>{{$item[0] ? $item[0]->totalHealed : ''}}</strong></h4>
@@ -217,11 +256,11 @@
                         </div>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-2 col-6">
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>{{$item[0] ? $item[0]->deathInlast24hours : ''}}</h3>
+                                <h3>{{$item[0] ? $item[0]->deathInlast24hours : 'Not Provided'}}</h3>
 
                                 <p><strong>Death in Last 24 Hours</strong></p>
                                 <h4><strong>{{$item[0] ? $item[0]->totalDeath : ''}}</strong></h4>
@@ -236,16 +275,18 @@
                     </div>
 
 
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-2 col-6">
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
 
 
-                                <p>1st Dose Taken-<strong>{{$item[1] ? $item[1]->first_dose_taken : ''}}</strong></p>
+                                <p>1st Dose Taken-<strong>{{$item[1] ? $item[1]->first_dose_taken : 'Not Provided'}}</strong></p>
                                 <p>Both Dose Taken-<strong>{{$item[1] ? $item[1]->both_dose_taken : ''}}</strong></p>
+
                                 <p>Above 45 Years-<strong>{{$item[1] ? $item[1]->above_45 : ''}}</strong></p>
                                 <p>Below 45 Years-<strong>{{$item[1] ? $item[1]->below_45 : ''}}</strong></p>
+
                             </div>
                             <div class="icon">
                                 <i class="fas fa-syringe"></i>
@@ -261,7 +302,6 @@
                 @endforeach
 
                 <!-- Global Cases -->
-
                 <div class="content-header ">
                     <div class="container-fluid ">
 
@@ -316,16 +356,17 @@
 
 
 
+
             </div>
         </section>
         <hr />
-        <!-- <hr /> -->
-        <!-- <section>
+        <hr />
+        <section>
 
             <div class="content">
                 <div class="row">
                     <div class="col">
-                        <h1 class="text-center">Government Updates/SMEC Updates</h1>
+                        <h1 class="text-center">Guidelines/Announcements</h1>
                         <div class="p-3 border bg-light">
                             <h4>{!! $govUpdate ? $govUpdate->govUpdate : '' !!}</h4>
                         </div>
@@ -346,11 +387,11 @@
 
 
 
-        </section> -->
+        </section>
 
-        <!-- <hr />
-        <hr /> -->
-        <!-- <section>
+        <hr />
+        <hr />
+        <section>
 
             <div class="content">
                 <div class="row">
@@ -432,8 +473,8 @@
 
 
 
-        </section> -->
-        <!-- <hr /> -->
+        </section>
+        <hr />
         <footer class="bg-light text-center text-lg-start">
 
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">

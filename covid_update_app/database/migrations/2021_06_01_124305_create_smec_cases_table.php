@@ -15,6 +15,7 @@ class CreateSmecCasesTable extends Migration
     {
         Schema::create('smec_cases', function (Blueprint $table) {
             $table->id();
+            $table->integer('activeCasesSmec');
             $table->integer('totalInSmec');
             $table->integer('detectInlast24hours');
             $table->integer('deathInlast24hours');

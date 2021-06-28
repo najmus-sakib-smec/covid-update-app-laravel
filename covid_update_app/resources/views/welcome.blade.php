@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Covid-19 Update Dashboard || SMEC</title>
+    <title>SACA Covid-19 Update Dashboard</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Google Font: Source Sans Pro -->
@@ -180,7 +180,7 @@
 
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Bangladesh Cases</h3>
+                                    <h3 class="card-title">SACA Cases</h3>
                                 </div>
 
                                 <form id="bdcases" method="POST" action="">
@@ -202,9 +202,13 @@
                                                 <option value="Tajikisthan">Tajikisthan</option>
                                             </select>
                                         </div>
-                                        <label for="total">Total affected in Bangladesh</label>
-                                        <input class="form-control" id="total" name="total" type="number" placeholder="Total affected in Bangladesh" value="{{$bdcases ? $bdcases->totalInBD : ''}}" required>
+                                        <label for="activeCases">Active Cases</label>
+                                        <input class="form-control" id="activeCases" name="activeCases" type="number" placeholder="Active Cases" value="{{$bdcases ? $bdcases->activeCases : ''}}" required>
                                         <br>
+                                        <label for="total">Total affected in Bangladesh</label>
+                                        <input class="form-control" id="total" name="total" type="number" placeholder="Total affected" value="{{$bdcases ? $bdcases->totalInBD : ''}}" required>
+                                        <br>
+
                                         <label for="detect">Detected in last 24 hour</label>
                                         <input class="form-control" id="detect" name="detect" type="number" placeholder="Detected in last 24 hour" value="{{$bdcases ? $bdcases->detectInlast24hours : ''}}" required>
                                         <br>
@@ -273,6 +277,9 @@
                                     @csrf
                                     <div class="card-body">
                                         <input type="hidden" name="id" value={{$smec_cases ? $smec_cases->id :' '}}>
+                                        <label for="activeCasesSmec">Active Cases in Smec </label>
+                                        <input class="form-control" id="activeCasesSmec" name="activeCasesSmec" type="number" placeholder="Active Cases in Smec" value="{{$smec_cases ? $smec_cases->activeCasesSmec : ''}}" required>
+                                        <br>
                                         <label for="totalInSmec">Total No. </label>
                                         <input class="form-control" id="totalInSmec" name="totalInSmec" type="number" placeholder="Total No." value="{{$smec_cases ? $smec_cases->totalInSmec : ''}}" required>
                                         <br>
@@ -420,6 +427,8 @@
 
                     </div>
                 </div>
+
+
             </section>
 
             <div class="content-header">
@@ -745,6 +754,7 @@
                         console.log(response);
                         $.each(response, function(index, value) {
                             console.log(index);
+                            document.getElementById("activeCases").value = value[0] ? value[0]['activeCases'] : '';
                             document.getElementById("total").value = value[0] ? value[0]['totalInBD'] : '';
                             document.getElementById("detect").value = value[0] ? value[0]['detectInlast24hours'] : '';
                             document.getElementById("death").value = value[0] ? value[0]['deathInlast24hours'] : '';

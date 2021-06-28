@@ -33,6 +33,7 @@ class CovidCasesController extends Controller
                 $bdcases = new bdcases;
 
                 $bdcases->country_case_name = $request->country_cases;
+                $bdcases->activeCases = $request->activeCases;
                 $bdcases->totalInBD = $request->total;
                 $bdcases->detectInlast24hours = $request->detect;
                 $bdcases->deathInlast24hours = $request->death;
@@ -54,6 +55,7 @@ class CovidCasesController extends Controller
 
             $smec_cases = new smec_cases;
 
+            $smec_cases->activeCasesSmec = $request->activeCasesSmec;
             $smec_cases->totalInSmec = $request->totalInSmec;
             $smec_cases->detectInlast24hours = $request->detectInlast24hours;
             $smec_cases->deathInlast24hours = $request->deathInlast24hours;
@@ -251,9 +253,12 @@ class CovidCasesController extends Controller
 
         if ($request->has('bdupdate')) {
 
+            // dd($request);
+
             $bdcases = bdcases::find($request->id);
 
             $bdcases->totalInBD = $request->total;
+            $bdcases->activeCases = $request->activeCases;
             $bdcases->detectInlast24hours = $request->detect;
             $bdcases->deathInlast24hours = $request->death;
             $bdcases->totalDeath = $request->totalDeath;
@@ -270,6 +275,7 @@ class CovidCasesController extends Controller
 
             $smec_cases = smec_cases::find($request->id);
 
+            $smec_cases->activeCasesSmec = $request->activeCasesSmec;
             $smec_cases->totalInSmec = $request->totalInSmec;
             $smec_cases->detectInlast24hours = $request->detectInlast24hours;
             $smec_cases->deathInlast24hours = $request->deathInlast24hours;

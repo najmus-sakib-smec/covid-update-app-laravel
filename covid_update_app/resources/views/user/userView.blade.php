@@ -4,7 +4,7 @@
 <head>
     <title>SACA Covid-19 Updates</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -56,12 +56,12 @@
 
             <div class="p-3 border bg-light">
 
-                <div class="content-header">
+                <div class="container-fluid">
                     <div class="col-sm-12">
-                        <h4 style="float:right;"> Cases Last updated at : <strong>{{$bdcases ? $bdcases ? $bdcases->updated_at : $bdcases->created_at : 'dd-mm-yy'}}</strong> || Vaccination status Last updated at : <strong>{{$vac ? $vac ? $vac->updated_at : $vac->created_at : 'dd-mm-yy'}}</strong></h4>
+                        <h6 style="float:right;"> Cases Last updated at : <strong>{{$bdcases ? $bdcases ? $bdcases->updated_at : $bdcases->created_at : 'dd-mm-yy'}}</strong> || Vaccination status Last updated at : <strong>{{$vac ? $vac ? $vac->updated_at : $vac->created_at : 'dd-mm-yy'}}</strong></h6>
                     </div>
                 </div>
-                <hr />
+                <!-- <hr /> -->
 
                 <!-- Bangladesh Cases -->
 
@@ -113,7 +113,7 @@
                                 <div class="inner">
                                     <h3>{{$smec_cases ? $smec_cases->activeCasesSmec : ' '}}</h3>
 
-                                    <h2><strong>Active Cases</strong></h2>
+                                    <h4><strong>Active Cases</strong></h4>
                                     <!-- <h4><strong>----------------------------</strong></h4> -->
                                     <p>Last Updated at : {{$smec_cases ? $smec_cases->created_at : '-'}}</p>
 
@@ -366,7 +366,7 @@
             <div class="content">
                 <div class="row">
                     <div class="col">
-                        <h1 class="text-center">Guidelines/Announcements</h1>
+                        <h3 class="text-center">Guidelines/Announcements</h3>
                         <div class="p-3 border bg-light">
                             <h4>{!! $govUpdate ? $govUpdate->govUpdate : '' !!}</h4>
                         </div>
@@ -375,7 +375,7 @@
 
                     </div>
                     <div class="col">
-                        <h1 class="text-center">News Links</h1>
+                        <h3 class="text-center">News Links</h3>
                         <div class="p-3 border bg-light">
                             <p>{!!$smecUpdate ? $smecUpdate->smecUpdatee : ''!!}</p>
                         </div>
@@ -396,74 +396,78 @@
             <div class="content">
                 <div class="row">
                     <div class="col">
-                        <h1 class="text-center">Emergency Contacts</h1>
+                        <h3 class="text-center">Emergency Contacts</h3>
                         <div class="p-3 border bg-light">
-                            <table class="table" border="4">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Designation</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col">WhatsApp</th>
+                            <div class="table-responsive">
+                                <table class="table" border="4">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Designation</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col">WhatsApp</th>
 
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                    $counter = 1;
-                                    @endphp
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                        $counter = 1;
+                                        @endphp
 
-                                    @foreach($contacts as $item)
-                                    <tr>
-                                        <th scope="row">{{$counter++}}</th>
-                                        <td>{{$item->name}}</td>
-                                        <td>{{$item->designation}}</td>
-                                        <td><a href="mailto:{{$item->email}}">{{$item->email}}</a></td>
-                                        <td><a href="tel:{{$item->phone}}">{{$item->phone}}</a></td>
-                                        <td>{{$item->whatsapp}}</td>
+                                        @foreach($contacts as $item)
+                                        <tr>
+                                            <th scope="row">{{$counter++}}</th>
+                                            <td>{{$item->name}}</td>
+                                            <td>{{$item->designation}}</td>
+                                            <td><a href="mailto:{{$item->email}}">{{$item->email}}</a></td>
+                                            <td><a href="tel:{{$item->phone}}">{{$item->phone}}</a></td>
+                                            <td>{{$item->whatsapp}}</td>
 
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
 
 
 
                     </div>
                     <div class=" col">
-                        <h1 class="text-center">Useful Links</h1>
+                        <h3 class="text-center">Useful Links</h3>
                         <div class="p-3 border bg-light">
-                            <table class="table" border="4">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Link</th>
+                            <div class="table-responsive">
+                                <table class="table" border="4">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Link</th>
 
 
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                    $counter = 1;
-                                    @endphp
-                                    @foreach($links as $item)
-                                    <tr>
-                                        <th scope="row">{{$counter++}}</th>
-                                        <th>{{$item->title}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                        $counter = 1;
+                                        @endphp
+                                        @foreach($links as $item)
+                                        <tr>
+                                            <th scope="row">{{$counter++}}</th>
+                                            <th>{{$item->title}}</th>
 
-                                        <td><a href={{$item->link}} target="_blank">{{$item->link}}</a></td>
+                                            <td><a href={{$item->link}} target="_blank">{{$item->link}}</a></td>
 
 
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

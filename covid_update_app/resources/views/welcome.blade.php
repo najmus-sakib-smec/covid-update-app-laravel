@@ -178,6 +178,17 @@
 
                             <x-auth-validation-errors class="mb-4 " :errors="$errors" />
 
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
+
                             <div class="card card-primary">
                                 <div class="card-header">
                                     <h3 class="card-title">SACA Cases</h3>
@@ -252,8 +263,8 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" name="bdcases" class="btn btn-primary" onclick="askForSave('bdcases')">Submit</button>
-                                        <button type="submit" name="bdupdate" class="btn btn-primary" onclick="askForSubmit('bdcases')">Update</button>
+                                        <button type="submit" name="bdcases" class="btn btn-success float-right" onclick="askForSave('bdcases')">Add New Record</button>
+                                        <button type="submit" name="bdupdate" class="btn btn-secondary btn-sm" onclick="askForSubmit('bdcases')">Update</button>
 
 
                                     </div>
@@ -269,7 +280,7 @@
 
                         <div class="col-md-4">
 
-                            <div class="card card-primary">
+                            <div class="card card-success">
                                 <div class="card-header">
                                     <h3 class="card-title">SMEC Cases</h3>
                                 </div>
@@ -302,8 +313,8 @@
                                     </div>
 
                                     <div class="card-footer">
-                                        <button name="smecCases" type="submit" class="btn btn-primary" onclick="askForSave('smecCases')">Submit</button>
-                                        <button type="submit" name="smecupdate" class="btn btn-primary" onclick="askForSubmit('smecCases')">Update</button>
+                                        <button name="smecCases" type="submit" class="btn btn-success float-right" onclick="askForSave('smecCases')">Add New Record</button>
+                                        <button type="submit" name="smecupdate" class="btn btn-secondary btn-sm" onclick="askForSubmit('smecCases')">Update</button>
                                     </div>
                                 </form>
 
@@ -313,7 +324,7 @@
 
                         <div class="col-md-4">
 
-                            <div class="card card-primary">
+                            <div class="card card-dark">
                                 <div class="card-header">
                                     <h3 class="card-title">Global Cases</h3>
                                 </div>
@@ -338,8 +349,8 @@
                                     </div>
 
                                     <div class="card-footer">
-                                        <button name="globalCases" type="submit" class="btn btn-primary" onclick="askForSave('globalcases')">Submit</button>
-                                        <button type="submit" name="globalupdate" class="btn btn-primary" onclick="askForSubmit('globalcases')">Update</button>
+                                        <button name="globalCases" type="submit" class="btn btn-success float-right" onclick="askForSave('globalcases')">Add New Record</button>
+                                        <button type="submit" name="globalupdate" class="btn btn-secondary btn-sm" onclick="askForSubmit('globalcases')">Update</button>
                                     </div>
 
                                 </form>
@@ -415,8 +426,8 @@
                                     </div>
 
                                     <div class="card-footer">
-                                        <button name="vaccinationSubmit" type="submit" class="btn btn-info" onclick="askForSaveV('vaccination')">Submit</button>
-                                        <button type="submit" name="vaccinationUpdate" class="btn btn-info" onclick="askForSubmitV('vaccination')">Update</button>
+                                        <button name="vaccinationSubmit" type="submit" class="btn btn-info float-right" onclick="askForSaveV('vaccination')">Add New Record</button>
+                                        <button type="submit" name="vaccinationUpdate" class="btn btn-dark btn-sm" onclick="askForSubmitV('vaccination')">Update</button>
                                     </div>
 
                                 </form>
@@ -451,7 +462,7 @@
                             <div class="card card-outline card-info">
                                 <div class="card-header">
                                     <h3 class="card-title">
-                                        Government Updates/SMEC Updates
+                                        Guidelines/Announcements
                                     </h3>
                                 </div>
                                 <!-- /.card-header -->
@@ -464,8 +475,8 @@
                                         </textarea>
 
                                         <div class="card-footer">
-                                            <button name="govUpdate" type="submit" class="btn btn-primary" onclick="askForSave('govUpdate')">Submit</button>
-                                            <button type="submit" name="govUpdate_update" class="btn btn-primary" onclick="askForSubmit('govUpdate')">Update</button>
+                                            <button name="govUpdate" type="submit" class="btn btn-success float-right" onclick="askForSave('govUpdate')">Submit</button>
+                                            <button type="submit" name="govUpdate_update" class="btn btn-secondary btn-sm" onclick="askForSubmit('govUpdate')">Update</button>
                                         </div>
                                     </form>
 
@@ -491,8 +502,8 @@
                                         </textarea>
 
                                         <div class="card-footer">
-                                            <button name="smecUpdate" type="submit" class="btn btn-primary" onclick="askForSave('smecUpdate')">Submit</button>
-                                            <button type="submit" name="smecUpdate_update" class="btn btn-primary" onclick="askForSubmit('smecUpdate')">Update</button>
+                                            <button name="smecUpdate" type="submit" class="btn btn-success float-right" onclick="askForSave('smecUpdate')">Submit</button>
+                                            <button type="submit" name="smecUpdate_update" class="btn btn-secondary btn-sm" onclick="askForSubmit('smecUpdate')">Update</button>
                                         </div>
                                     </form>
                                 </div>
@@ -565,7 +576,7 @@
                                             </div>
                                         </div>
                                         <div class=" card-footer">
-                                            <button type="submit" name="contacts" class="btn btn-success">Submit</button>
+                                            <button type="submit" name="contacts" class="btn btn-success float-right" onclick=>Submit</button>
 
                                         </div>
                                     </form>
@@ -607,7 +618,7 @@
 
                                         </div>
                                         <div class="card-footer">
-                                            <button type="submit" name="links" class="btn btn-success">Submit</button>
+                                            <button type="submit" name="links" class="btn btn-success float-right" onclick=>Submit</button>
 
                                         </div>
 

@@ -35,32 +35,43 @@
 
 <body>
 
+    <nav class="navbar navbar-expand-sm" style="background-color: #e3f2fd;">
+        <a class="navbar-brand" href="#">
+            <img src="{{asset('images\SJ_SJ_FC_RGB.png')}}" alt="Logo" style="width:150px; padding:10px">
+            <img src="{{asset('images\SMEC_LOGO.png')}}" alt="Logo" style="width:150px; padding:10px">
+
+
+        </a>
+
+        <!-- <div style="border-left: 2px dotted black;height: 100px;position: relative;"></div> -->
+        <div class="container" style="margin-left:0px;">
+            <h4 style="font-family: 'DM Sans', sans-serif; padding:20px;"><strong>SACA Covid-19 Updates</strong></h4>
+        </div>
+
+    </nav>
+
+    <!-- <div class="jumbotron jumbotron-fluid">
+        <div class="col-sm-12">
+            <h6 style="float:right;"> Cases Last updated at : <strong>{{$bdcases ? $bdcases ? $bdcases->updated_at : $bdcases->created_at : 'dd-mm-yy'}}</strong> || Vaccination status Last updated at : <strong>{{$vac ? $vac ? $vac->updated_at : $vac->created_at : 'dd-mm-yy'}}</strong></h6>
+        </div>
+    </div> -->
+
+    <div class="card text-center">
+        <div class="card-body">
+            <h6>Country Cases Last updated at : <strong>{{$bdcases ? $bdcases ? $bdcases->updated_at : $bdcases->created_at : 'dd-mm-yy'}}</strong></h6>
+            <h6>Vaccination status Last updated at : <strong>{{$vac ? $vac ? $vac->updated_at : $vac->created_at : 'dd-mm-yy'}}</strong></h6>
+        </div>
+    </div>
+
     <div class="container-fluid">
 
-        <nav class="navbar navbar-expand-sm" style="background-color: #e3f2fd;">
-            <a class="navbar-brand" href="#">
-                <img src="{{asset('images\SJ_SJ_FC_RGB.png')}}" alt="Logo" style="width:200px; padding:10px">
-                <img src="{{asset('images\SMEC_LOGO.png')}}" alt="Logo" style="width:200px; padding:10px">
 
-
-            </a>
-
-            <div style="border-left: 2px dotted black;height: 100px;position: relative;"></div>
-            <div class="container" style="margin-left:0px;">
-                <h4 style="font-family: 'DM Sans', sans-serif; padding:20px;"><strong>SACA Covid-19 Updates</strong></h4>
-            </div>
-
-        </nav>
 
         <section class="content">
 
             <div class="p-3 border bg-light">
 
-                <div class="container-fluid">
-                    <div class="col-sm-12">
-                        <h6 style="float:right;"> Cases Last updated at : <strong>{{$bdcases ? $bdcases ? $bdcases->updated_at : $bdcases->created_at : 'dd-mm-yy'}}</strong> || Vaccination status Last updated at : <strong>{{$vac ? $vac ? $vac->updated_at : $vac->created_at : 'dd-mm-yy'}}</strong></h6>
-                    </div>
-                </div>
+
                 <!-- <hr /> -->
 
                 <!-- Bangladesh Cases -->
@@ -88,7 +99,7 @@
 
 
 
-                        <div class="col-lg-2 col-6">
+                        <div class="col-lg-2 col-12">
                             <!-- small box -->
                             <div class="small-box bg-primary">
                                 <div class="inner">
@@ -107,14 +118,12 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-2 col-6">
-                            <!-- small box -->
+                        <!-- <div class="col-lg-2 col-6">
                             <div class="small-box bg-warning">
                                 <div class="inner">
                                     <h3>{{$smec_cases ? $smec_cases->activeCasesSmec : ' '}}</h3>
 
                                     <h4><strong>Active Cases</strong></h4>
-                                    <!-- <h4><strong>----------------------------</strong></h4> -->
                                     <p>Last Updated at : {{$smec_cases ? $smec_cases->created_at : '-'}}</p>
 
 
@@ -124,9 +133,12 @@
                                 </div>
                                 <a href="#" class="small-box-footer"><strong>Active Cases</strong></a>
                             </div>
-                        </div>
+                        </div> -->
+
+
+
                         <!-- ./col -->
-                        <div class="col-lg-2 col-6">
+                        <div class="col-lg-2 col-12">
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
@@ -145,7 +157,7 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                        <div class="col-lg-2 col-6">
+                        <div class="col-lg-2 col-12">
                             <!-- small box -->
                             <div class="small-box bg-danger">
                                 <div class="inner">
@@ -174,6 +186,21 @@
                         <!-- ./col -->
                     </div>
 
+                    <div class="col-sm-6 mx-auto">
+
+                        <div class="card bg-warning">
+                            <div class="card-body text-center">
+                                <h5><strong>{{$smec_cases ? $smec_cases->activeCasesSmec : ' '}}</strong></h5>
+
+                                <div class="small-box">
+
+                                    <h4 style="color:red;" class="small-box-footer"><strong> Active Cases</strong></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
 
 
@@ -198,7 +225,7 @@
 
 
 
-                    <div class="col-lg-2 col-6">
+                    <div class="col-lg-2 col-12">
                         <!-- small box -->
                         <div class="small-box bg-primary">
                             <div class="inner">
@@ -218,14 +245,14 @@
                     </div>
 
 
-                    <div class="col-lg-2 col-6">
-                        <!-- small box -->
+                    <!-- <div class="col-lg-2 col-12">
+                        
                         <div class="small-box bg-warning">
                             <div class="inner">
                                 <h3>{{$item[0] ? $item[0]->activeCases : 'Not Provided'}}</h3>
 
                                 <h2><strong>Active Cases</strong></h2>
-                                <!-- <h4><strong>----------------------------</strong></h4> -->
+                                
                                 <p>Last Updated at : {{$item[0] ? $item[0]->created_at : '-'}}</p>
 
 
@@ -235,9 +262,10 @@
                             </div>
                             <a href="#" class="small-box-footer"><strong>Active Cases</strong></a>
                         </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-2 col-6">
+                    </div> -->
+
+
+                    <div class="col-lg-2 col-12">
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
@@ -255,8 +283,9 @@
                             <a href="#" class="small-box-footer"><strong>Healed</strong> </a>
                         </div>
                     </div>
-                    <!-- ./col -->
-                    <div class="col-lg-2 col-6">
+
+
+                    <div class="col-lg-2 col-12">
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
@@ -275,8 +304,8 @@
                     </div>
 
 
-                    <div class="col-lg-2 col-6">
-                        <!-- small box -->
+                    <!-- <div class="col-lg-2 col-6">
+
                         <div class="small-box bg-info">
                             <div class="inner">
 
@@ -293,10 +322,48 @@
                             </div>
                             <a href="#" class="small-box-footer">Vaccination Status</a>
                         </div>
+                    </div> -->
+
+
+
+
+
+                </div>
+                <!-- Active Cases -->
+                <div class="col-sm-6 mx-auto">
+
+                    <div class="card bg-warning">
+                        <div class="card-body text-center">
+                            <h2><strong>{{$item[0] ? $item[0]->activeCases : 'Not Provided'}}</strong></h2>
+
+
+                            <div class="small-box">
+
+                                <h4 style="color:red;" class="small-box-footer"><strong> Active Cases</strong></h4>
+                            </div>
+
+                        </div>
+
+
                     </div>
 
+                </div>
+                <!-- Vaccination Status -->
+                <div class="col-sm-6 mx-auto">
 
+                    <div class="card bg-info">
+                        <div class="card-body text-center">
+                            <p>1st Dose Taken-<strong>{{$item[1] ? $item[1]->first_dose_taken : 'Not Provided'}}</strong> || Both Dose Taken-<strong>{{$item[1] ? $item[1]->both_dose_taken : ''}}</strong></p>
+                            <!-- <p>Both Dose Taken-<strong>{{$item[1] ? $item[1]->both_dose_taken : ''}}</strong></p> -->
 
+                            <p>Above 45 Years-<strong>{{$item[1] ? $item[1]->above_45 : ''}}</strong> || Below 45 Years-<strong>{{$item[1] ? $item[1]->below_45 : ''}}</strong></p>
+
+                            <div class="small-box">
+
+                                <h4 href="#" class="small-box-footer"><strong> Vaccination Status </strong></h4>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 @endif
                 @endforeach
@@ -315,7 +382,7 @@
 
                 <div class="row justify-content-md-center">
 
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-3 col-12">
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
@@ -327,13 +394,11 @@
                             <div class="icon">
                                 <i class="fas fa-virus"></i>
                             </div>
-                            <a href="#" class="small-box-footer">Infected <i class="fas fa-virus"></i></a>
+                            <a href="#" class="small-box-footer">Infected </a>
                         </div>
                     </div>
-                    <!-- ./col -->
 
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-3 col-12">
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
@@ -346,12 +411,10 @@
                             <div class="icon">
                                 <i class="fas fa-skull-crossbones"></i>
                             </div>
-                            <a href="#" class="small-box-footer">Rest in Peace <i class="fas fa-skull-crossbones"></i></a>
+                            <a href="#" class="small-box-footer">Rest in Peace </a>
                         </div>
                     </div>
-                    <!-- ./col -->
 
-                    <!-- ./col -->
                 </div>
 
 
@@ -360,29 +423,41 @@
             </div>
         </section>
         <hr />
-        <hr />
-        <section>
 
-            <div class="content">
-                <div class="row">
-                    <div class="col">
-                        <h3 class="text-center">Guidelines/Announcements</h3>
-                        <div class="p-3 border bg-light">
-                            <h4>{!! $govUpdate ? $govUpdate->govUpdate : '' !!}</h4>
+        <section class="content">
+
+
+            <div class="row">
+                <div class="col">
+
+                    <div class="card text-center bg-light">
+                        <div class="card-body">
+                            <h4 class="text-center">Guidelines/Announcements</h4>
                         </div>
-
-
-
                     </div>
-                    <div class="col">
-                        <h3 class="text-center">News Links</h3>
-                        <div class="p-3 border bg-light">
-                            <p>{!!$smecUpdate ? $smecUpdate->smecUpdatee : ''!!}</p>
+
+                    <div class="card-body">
+                        <p>{!! $govUpdate ? $govUpdate->govUpdate : 'No Records found' !!}</p>
+                    </div>
+
+
+
+                </div>
+                <div class="col">
+
+                    <div class="card text-center bg-light">
+                        <div class="card-body">
+                            <h4 class="text-center">News Links</h4>
                         </div>
+                    </div>
+
+                    <div class="card-body">
+                        <p>{!!$smecUpdate ? $smecUpdate->smecUpdatee : 'No Records found'!!}</p>
                     </div>
                 </div>
-
             </div>
+
+
 
 
 
@@ -391,13 +466,19 @@
 
         <hr />
         <hr />
-        <section>
+        <section class="content">
 
-            <div class="content">
-                <div class="row">
-                    <div class="col">
-                        <h3 class="text-center">Emergency Contacts</h3>
-                        <div class="p-3 border bg-light">
+
+            <div class="row">
+                <div class="col">
+
+                    <div class="card text-center bg-light">
+                        <div class="card-body">
+                            <h4 class="text-center">Emergency Contacts</h4>
+                        </div>
+                    </div>
+                    <!-- 
+                        <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table" border="4">
                                     <thead>
@@ -431,14 +512,75 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div> -->
+
+
+                    <!-- <div class="card bg-light">
+
+                            <div class="card-body"> -->
+
+
+                    <div class="row justify-content-md-center">
+
+                        @forelse($contacts as $item)
+
+                        <div class="col-lg-6 col-12">
+                            <div class="card bg-light">
+                                <div class="card-body">
+
+                                    <h2 class="lead"><b>{{$item ? $item->name : 'No Records found'}}</b></h2>
+                                    <p class="text-sm"><b>{{$item->designation}}</b>
+                                    </p>
+                                    <ul class="ml-4 mb-0 fa-ul">
+                                        <li class="small"><span class="fa-li"><i class="far fa-envelope"></i></span>
+                                            <a href="mailto:{{$item->email}}">{{$item->email}}</a>
+                                            ||
+                                            <i class="fas fa-lg fa-phone"></i>
+                                            <a href="tel:{{$item->phone}}">{{$item->phone}}</a>
+                                        </li>
+                                        <!-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <a href="tel:{{$item->phone}}">{{$item->phone}}</a></li> -->
+                                        <li class="small"><span class="fa-li"><i class="fab fa-whatsapp"></i></span> <a href="tel:{{$item->phone}}">{{$item->phone}}</a></li>
+                                    </ul>
+
+
+                                </div>
+                            </div>
                         </div>
 
+                        @empty
+                        <div class="col-lg-4 col-12">
+                            <h2 class="lead"><b>No Records found</b></h2>
 
+                        </div>
+                        @endforelse
 
                     </div>
-                    <div class=" col">
-                        <h3 class="text-center">Useful Links</h3>
-                        <div class="p-3 border bg-light">
+
+
+
+
+
+
+
+                    <!-- </div>
+
+                        </div> -->
+
+
+
+                </div>
+
+
+
+                <div class="col">
+
+                    <div class="card text-center bg-light">
+                        <div class="card-body">
+                            <h4 class="text-center">Useful Links</h4>
+                        </div>
+                    </div>
+
+                    <!-- <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table" border="4">
                                     <thead>
@@ -468,11 +610,44 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div> -->
+
+                    <div class="col-lg-6 col-12">
+                        @forelse($links as $item)
+
+                        <!-- <div class="card bg-dark">
+                                <div class="card-body">
+
+
+                                    <h2 class="lead"><b>{{$item ? $item->title : 'No Records found'}}</b></h2>
+                                    <p class="text-sm"><b><a href={{$item->link}} target="_blank">{{$item->link}}</a></b>
+                                    </p>
+
+
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <ul>
+                            <li href={{$item->link}} target="_blank"><b><a href={{$item->link}} target="_blank">{{$item ? $item->title : 'No Records found'}}</a></b></li>
+
+                        </ul>
+                        <!-- <a class="small" href={{$item->link}} target="_blank">{{$item->link}}</a> -->
+
+
+                        @empty
+                        <div class="col-lg-6 col-12 text-center">
+                            <h2 class="lead"><b>No Records found</b></h2>
                         </div>
+
+                        @endforelse
                     </div>
+
                 </div>
 
             </div>
+
+
 
 
 
@@ -483,7 +658,7 @@
 
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
                 © 2021 Copyright:
-                <a class="text-dark" href="#">SMEC Bangladesh</a>
+                <a class="text-dark" href="#">SMEC International Pty Ltd.</a>
             </div>
 
         </footer>

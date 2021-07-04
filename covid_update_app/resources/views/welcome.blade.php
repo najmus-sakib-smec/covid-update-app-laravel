@@ -163,8 +163,21 @@
                 </div>
             </div>
 
+
+            @if ($errors->any())
+            <div class="alert alert-light" style="border:solid red">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+
+
             <hr />
-            <!-- /.content-header -->
+
 
             <!-- Main content -->
 
@@ -176,15 +189,13 @@
 
                         <div class="col-md-4">
 
-                            <x-auth-validation-errors class="mb-4 " :errors="$errors" />
+                            <!-- <x-auth-validation-errors class="mb-4 " :errors="$errors" /> -->
 
-                            @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+
+
+                            @if(session()->has('message'))
+                            <div class="alert alert-light" style="border:solid green">
+                                {{ session()->get('message') }}
                             </div>
                             @endif
 
@@ -194,14 +205,14 @@
                                     <h3 class="card-title">SACA Cases</h3>
                                 </div>
 
-                                <form id="bdcases" method="POST" action="">
+                                <form id="bdcases" method="POST" action="" onsubmit="return validateForm('bdcases')" required>
                                     @csrf
-                                    <div class=" card-body">
-                                        <input type="hidden" name="id" value={{$bdcases ? $bdcases->id : ' '}}>
+                                    <div class="card-body">
+                                        <input type="hidden" name="id" id="id" value={{$bdcases ? $bdcases->id : ''}}>
 
                                         <div class="form-group">
                                             <label for="country_cases">Country:</label>
-                                            <select class="form-control" id="country_cases" name="country_cases" onChange="toggleCountryValue()">
+                                            <select class="form-control" id="country_cases" name="country_cases" onChange="toggleCountryValue()" required>
                                                 <option value="Bangladesh">Bangladesh</option>
                                                 <option value="Afghanistan">Afghanistan</option>
                                                 <option value="Georgia">Georgia</option>
@@ -216,7 +227,7 @@
                                         <label for="activeCases">Active Cases</label>
                                         <input class="form-control" id="activeCases" name="activeCases" type="number" placeholder="Active Cases" value="{{$bdcases ? $bdcases->activeCases : ''}}" required>
                                         <br>
-                                        <label for="total">Total affected in Bangladesh</label>
+                                        <label for="total">Total affected</label>
                                         <input class="form-control" id="total" name="total" type="number" placeholder="Total affected" value="{{$bdcases ? $bdcases->totalInBD : ''}}" required>
                                         <br>
 
@@ -262,9 +273,10 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="card-footer">
-                                        <button type="submit" name="bdcases" class="btn btn-success float-right" onclick="askForSave('bdcases')">Add New Record</button>
-                                        <button type="submit" name="bdupdate" class="btn btn-secondary btn-sm" onclick="askForSubmit('bdcases')">Update</button>
+                                        <button type="submit" name="bdcases" id="bdcases" class="btn btn-success float-right">Add New Record</button>
+                                        <button type="submit" name="bdupdate" id="bdupdate" class="btn btn-secondary btn-sm">Update</button>
 
 
                                     </div>
@@ -280,14 +292,20 @@
 
                         <div class="col-md-4">
 
+                            @if(session()->has('message1'))
+                            <div class="alert alert-light" style="border:solid green">
+                                {{ session()->get('message1') }}
+                            </div>
+                            @endif
+
                             <div class="card card-success">
                                 <div class="card-header">
                                     <h3 class="card-title">SMEC Cases</h3>
                                 </div>
-                                <form id="smecCases" method="POST" action="">
+                                <form id="smecCases" name="smecCases" method="POST" action="" onsubmit="return validateForm('smecCases')" required>
                                     @csrf
                                     <div class="card-body">
-                                        <input type="hidden" name="id" value={{$smec_cases ? $smec_cases->id :' '}}>
+                                        <input type="hidden" name="id" id="id" value={{$smec_cases ? $smec_cases->id :' '}}>
                                         <label for="activeCasesSmec">Active Cases in Smec </label>
                                         <input class="form-control" id="activeCasesSmec" name="activeCasesSmec" type="number" placeholder="Active Cases in Smec" value="{{$smec_cases ? $smec_cases->activeCasesSmec : ''}}" required>
                                         <br>
@@ -313,8 +331,8 @@
                                     </div>
 
                                     <div class="card-footer">
-                                        <button name="smecCases" type="submit" class="btn btn-success float-right" onclick="askForSave('smecCases')">Add New Record</button>
-                                        <button type="submit" name="smecupdate" class="btn btn-secondary btn-sm" onclick="askForSubmit('smecCases')">Update</button>
+                                        <button name="smecCases" id="smecCases" type="submit" class="btn btn-success float-right">Add New Record</button>
+                                        <button type="submit" name="smecupdate" id="smecupdate" class="btn btn-secondary btn-sm">Update</button>
                                     </div>
                                 </form>
 
@@ -324,12 +342,18 @@
 
                         <div class="col-md-4">
 
+                            @if(session()->has('message2'))
+                            <div class="alert alert-light" style="border:solid green">
+                                {{ session()->get('message2') }}
+                            </div>
+                            @endif
+
                             <div class="card card-dark">
                                 <div class="card-header">
                                     <h3 class="card-title">Global Cases</h3>
                                 </div>
 
-                                <form id="globalcases" method="POST" action="{{ route('storeCases')}}">
+                                <form id="globalcases" name="globalcases" method="POST" action="" onsubmit="return validateForm('globalcases')" required>
                                     @csrf
                                     <div class="card-body">
                                         <input type="hidden" name="id" value={{$global_cases ? $global_cases->id : ''}}>
@@ -349,8 +373,8 @@
                                     </div>
 
                                     <div class="card-footer">
-                                        <button name="globalCases" type="submit" class="btn btn-success float-right" onclick="askForSave('globalcases')">Add New Record</button>
-                                        <button type="submit" name="globalupdate" class="btn btn-secondary btn-sm" onclick="askForSubmit('globalcases')">Update</button>
+                                        <button name="globalCases" id="globalCases" type="submit" class="btn btn-success float-right">Add New Record</button>
+                                        <button type="submit" name="globalupdate" id="globalupdate" class="btn btn-secondary btn-sm">Update</button>
                                     </div>
 
                                 </form>
@@ -391,13 +415,12 @@
                                     <h3 class="card-title">Vaccination Status</h3>
                                 </div>
 
-                                <form id="vaccination" method="POST" action="{{ route('vaccination')}}">
+                                <form id="vaccination" method="POST" action="" onsubmit="return validateForm('vaccination')" required>
                                     @csrf
                                     <div class="card-body">
-                                        <input type="hidden" name="id" value={{$vaccination ? $vaccination->id : ''}}>
                                         <div class="form-group">
                                             <label for="country">Country:</label>
-                                            <select class="form-control" id="country" name="country" onChange="toggleValue()">
+                                            <select class="form-control" id="country" name="country" onChange="toggleValue()" required>
                                                 <option value="Bangladesh">Bangladesh</option>
                                                 <option value="Afghanistan">Afghanistan</option>
                                                 <option value="Georgia">Georgia</option>
@@ -409,6 +432,8 @@
                                                 <option value="Tajikisthan">Tajikisthan</option>
                                             </select>
                                         </div>
+
+                                        <input type="hidden" name="Vid" id="Vid" value={{$vaccination ? $vaccination->id : ''}}>
                                         <label for="firstdose">1st Dose Taken</label>
                                         <input class="form-control" id="firstdose" name="firstdose" type="number" placeholder="1st Dose Taken" value="{{$vaccination ? $vaccination->first_dose_taken : ''}}" required>
                                         <br>
@@ -426,8 +451,8 @@
                                     </div>
 
                                     <div class="card-footer">
-                                        <button name="vaccinationSubmit" type="submit" class="btn btn-info float-right" onclick="askForSaveV('vaccination')">Add New Record</button>
-                                        <button type="submit" name="vaccinationUpdate" class="btn btn-dark btn-sm" onclick="askForSubmitV('vaccination')">Update</button>
+                                        <button name="vaccinationSubmit" id="vaccinationSubmit" type="submit" class="btn btn-info float-right">Add New Record</button>
+                                        <button type="submit" name="vaccinationUpdate" id="vaccinationUpdate" class="btn btn-dark btn-sm">Update</button>
                                     </div>
 
                                 </form>
@@ -454,6 +479,15 @@
 
 
             <section class="content">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
 
                 <div class="container-fluid">
                     <div class="row">
@@ -467,16 +501,16 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <form id="govUpdate" method="POST" action="{{ route('storeCases')}}">
+                                    <form id="govUpdate" name="govUpdate" method="POST" action="" onsubmit="return validateForm('govUpdate')" required>
                                         @csrf
-                                        <input type="hidden" name="id" value={{$govUpdate ? $govUpdate->id : ' '}}>
-                                        <textarea id="summernote" name="summernote">
-                                        {{$govUpdate ? $govUpdate->govUpdate : ''}}
+                                        <input type="hidden" name="id" value={{$govUpdate ? $govUpdate->id : ''}}>
+                                        <textarea id="summernote" name="summernote" required>
+                                        {{$govUpdate ? $govUpdate->govUpdate : 'No last Record found'}}
                                         </textarea>
 
                                         <div class="card-footer">
-                                            <button name="govUpdate" type="submit" class="btn btn-success float-right" onclick="askForSave('govUpdate')">Submit</button>
-                                            <button type="submit" name="govUpdate_update" class="btn btn-secondary btn-sm" onclick="askForSubmit('govUpdate')">Update</button>
+                                            <button name="govUpdate" id="govUpdate" type="submit" class="btn btn-success float-right">Submit</button>
+                                            <button type="submit" name="govUpdate_update" id="govUpdate_update" class="btn btn-secondary btn-sm">Update</button>
                                         </div>
                                     </form>
 
@@ -494,16 +528,16 @@
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <form id="smecUpdate" method="POST" action="{{ route('storeCases')}}">
+                                    <form id="smecUpdate" method="POST" action="" onsubmit="return validateForm('smecUpdate')" required>
                                         @csrf
                                         <input type="hidden" name="id" value={{$smecUpdate ? $smecUpdate->id : ' '}}>
                                         <textarea id="summernotee" name="summernotee">
-                                        {{$smecUpdate ? $smecUpdate->smecUpdatee : ''}}
+                                        {{$smecUpdate ? $smecUpdate->smecUpdatee : 'No last Record found'}}
                                         </textarea>
 
                                         <div class="card-footer">
-                                            <button name="smecUpdate" type="submit" class="btn btn-success float-right" onclick="askForSave('smecUpdate')">Submit</button>
-                                            <button type="submit" name="smecUpdate_update" class="btn btn-secondary btn-sm" onclick="askForSubmit('smecUpdate')">Update</button>
+                                            <button name="smecUpdate" type="submit" class="btn btn-success float-right">Submit</button>
+                                            <button type="submit" name="smecUpdate_update" class="btn btn-secondary btn-sm">Update</button>
                                         </div>
                                     </form>
                                 </div>
@@ -604,7 +638,7 @@
 
                                                 <label for="inputEmail3" class="col-sm-4 col-form-label">Title</label>
                                                 <div class="col-sm-6">
-                                                    <input class="form-control" id="title" name="title">
+                                                    <input class="form-control" id="title" name="title" required>
                                                     <br>
                                                 </div>
                                                 <br>
@@ -700,18 +734,30 @@
     </script>
 
     <script>
-        bdcase = document.getElementById("bdcases");
+        // bdcase = document.getElementById("bdcases");
 
-        function askForSave(xyz) {
-            document.getElementById(xyz).action = "{{ route('storeCases')}}";
+        // function askForSave(xyz) {
 
-            document.getElementById(xyz).submit();
-        }
 
-        function askForSubmit(xyz) {
-            document.getElementById(xyz).action = "{{route('updateCases')}}";
-            document.getElementById(xyz).submit();
-        }
+        //     // var x = document.querySelectorAll("input.form-control");
+        //     // console.log(x);
+        //     // document.getElementById(xyz).action = "{{ route('storeCases')}}";
+
+        //     // document.getElementById(xyz).submit();
+
+
+        //     function validate() {
+        //         var val = document.getElementById(xyz).value;
+        //         if (/^\s*$/g.test(val)) {
+        //             alert('Wrong content!');
+        //         }
+        //     }
+        // }
+
+        // function askForSubmit(xyz) {
+        //     document.getElementById(xyz).action = "{{route('updateCases')}}";
+        //     document.getElementById(xyz).submit();
+        // }
     </script>
 
     <script>
@@ -729,9 +775,11 @@
                         "country": x
                     },
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         $.each(response, function(index, value) {
-                            console.log(index);
+                            // console.log(index);
+                            document.getElementById("Vid").value = value[0] ? value[0]['id'] : '';
+                            // console.log(document.getElementById("Vid").value);
                             document.getElementById("firstdose").value = value[0] ? value[0]['first_dose_taken'] : '';
                             document.getElementById("bothdose").value = value[0] ? value[0]['both_dose_taken'] : '';
                             document.getElementById("above45").value = value[0] ? value[0]['above_45'] : '';
@@ -762,9 +810,12 @@
                         "country_cases": x
                     },
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         $.each(response, function(index, value) {
-                            console.log(index);
+
+                            document.getElementById("id").value = value[0] ? value[0]['id'] : '';
+
+                            // console.log(response);
                             document.getElementById("activeCases").value = value[0] ? value[0]['activeCases'] : '';
                             document.getElementById("total").value = value[0] ? value[0]['totalInBD'] : '';
                             document.getElementById("detect").value = value[0] ? value[0]['detectInlast24hours'] : '';
@@ -802,6 +853,119 @@
             document.getElementById(xyz).action = "{{route('updateCases')}}";
             document.getElementById(xyz).submit();
         }
+    </script>
+
+    <script>
+        function validateForm(xyz) {
+
+
+
+            var x = document.activeElement.getAttribute('name');
+            console.log(x);
+
+            if (x == 'bdcases') {
+                document.getElementById(xyz).action = "{{ route('storeCases')}}";
+
+                document.getElementById(xyz).submit();
+            } else if (x == 'bdupdate') {
+                document.getElementById(xyz).action = "{{route('updateCases')}}";
+                document.getElementById(xyz).submit();
+            } else if (x == 'smecCases') {
+                document.getElementById(xyz).action = "{{ route('storeCases')}}";
+
+                document.getElementById(xyz).submit();
+            } else if (x == 'smecupdate') {
+                document.getElementById(xyz).action = "{{route('updateCases')}}";
+                document.getElementById(xyz).submit();
+            } else if (x == 'globalCases') {
+                document.getElementById(xyz).action = "{{ route('storeCases')}}";
+
+                document.getElementById(xyz).submit();
+            } else if (x == 'globalupdate') {
+                document.getElementById(xyz).action = "{{route('updateCases')}}";
+                document.getElementById(xyz).submit();
+            } else if (x == 'vaccinationSubmit') {
+                document.getElementById(xyz).action = "{{ route('vaccination')}}";
+
+                document.getElementById(xyz).submit();
+            } else if (x == 'vaccinationUpdate') {
+                document.getElementById(xyz).action = "{{route('updateCases')}}";
+                document.getElementById(xyz).submit();
+            } else if (x == 'govUpdate') {
+
+                document.getElementById(xyz).action = "{{ route('storeCases')}}";
+
+                document.getElementById(xyz).submit();
+            } else if (x == 'govUpdate_update') {
+
+                document.getElementById(xyz).action = "{{ route('updateCases')}}";
+
+                document.getElementById(xyz).submit();
+            } else if (x == 'smecUpdate') {
+
+                document.getElementById(xyz).action = "{{ route('storeCases')}}";
+
+                document.getElementById(xyz).submit();
+            } else if (x == 'smecUpdate_update') {
+
+                document.getElementById(xyz).action = "{{ route('updateCases')}}";
+
+                document.getElementById(xyz).submit();
+            } else
+
+            {
+                alert("All inputs must be filled out");
+            }
+
+        }
+
+        // var arr = new Array();
+
+        // function count() {
+        //     var e = document.forms["bdcases"];
+        //     e = e.getElementsByTagName('input');
+        //     alert(e.length);
+        // }
+        // for (let i = 0; i < e.length; i++) {
+        //     var x = document.forms["bdcases"][i].value;
+        //     arr.push(x);
+
+        // }
+        // console.log(arr);
+        // if (x == "") {
+        //     alert("Name must be filled out");
+        //     return false;
+        // }
+    </script>
+
+    <script>
+        // var arr = new Array();
+        // window.onload = function count() {
+        //     var e = document.forms["bdcases"];
+        //     e = e.getElementsByTagName('input');
+
+        //     for (let i = 0; i < e.length; i++) {
+        //         var x = document.forms["bdcases"][i].value;
+        //         arr.push(x);
+
+        //     }
+        //     alert(arr); // 6
+
+
+        // }
+
+
+        // $(document).ready(function() {
+        //     var clkBtn = "";
+        //     $('input[type="submit"]').click(function(evt) {
+        //         clkBtn = evt.target.id;
+        //     });
+
+        //     $("#bdcases").submit(function(evt) {
+        //         var btnID = clkBtn;
+        //         alert("form submitted; button id=" + btnID);
+        //     });
+        // });
     </script>
 </body>
 

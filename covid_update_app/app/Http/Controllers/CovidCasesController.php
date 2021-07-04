@@ -27,9 +27,20 @@ class CovidCasesController extends Controller
                 'TotalInfectionRate' => 'required|numeric',
                 'recoveryRate' => 'required|numeric',
                 'deathRate' => 'required|numeric',
+
+                'activeCases' => 'required|numeric',
+                'total' => 'required|numeric',
+                'detect' => 'required|numeric',
+                'death' => 'required|numeric',
+
+                'totalDeath' => 'required|numeric',
+                'healed' => 'required|numeric',
+                'TotalHealed' => 'required|numeric',
+
             ]);
 
             if ($validated) {
+
                 $bdcases = new bdcases;
 
                 $bdcases->country_case_name = $request->country_cases;
@@ -46,9 +57,10 @@ class CovidCasesController extends Controller
                 $bdcases->deathRate = $request->deathRate;
                 $bdcases->save();
 
-                return redirect('/admin');
-            } else
-                return redirect('/admin');
+                return redirect('/admin')->with('message', 'SACA cases Stored Successfully !');
+            }
+
+            return redirect()->with('status', 'Something Wrong');
         }
 
         if ($request->has('smecCases')) {
@@ -65,7 +77,7 @@ class CovidCasesController extends Controller
 
             $smec_cases->save();
 
-            return redirect('/admin');
+            return redirect('/admin')->with('message1', 'SMEC cases Stored Successfully !');
         }
 
         if ($request->has('globalCases')) {
@@ -79,29 +91,48 @@ class CovidCasesController extends Controller
 
             $global_cases->save();
 
-            return redirect('/admin');
+            return redirect('/admin')->with('message2', 'Global cases Stored Successfully !');
         }
 
         if ($request->has('govUpdate')) {
 
-            $govUpdate = new gov_Update;
+            // dd($request);
 
-            $govUpdate->govUpdate = $request->summernote;
+            $validated = $request->validate([
+                'summernote' => 'required|min:105',
 
-            $govUpdate->save();
 
-            return redirect('/admin');
+            ]);
+
+
+            if ($validated) {
+                $govUpdate = new gov_Update;
+
+                $govUpdate->govUpdate = $request->summernote;
+
+                $govUpdate->save();
+
+                return redirect('/admin');
+            }
         }
 
         if ($request->has('smecUpdate')) {
 
-            $smecUpdate = new smec_Update;
+            $validated = $request->validate([
+                'summernotee' => 'required|min:245',
 
-            $smecUpdate->smecUpdatee = $request->summernotee;
 
-            $smecUpdate->save();
+            ]);
 
-            return redirect('/admin');
+            if ($validated) {
+                $smecUpdate = new smec_Update;
+
+                $smecUpdate->smecUpdatee = $request->summernotee;
+
+                $smecUpdate->save();
+
+                return redirect('/admin');
+            }
         }
 
         if ($request->has('contacts')) {
@@ -129,14 +160,14 @@ class CovidCasesController extends Controller
             $links->save();
 
             return redirect('/admin');
-        } else
-            return redirect('/admin');
+        }
     }
 
     public function check(Request $request)
     {
 
         $vaccination = DB::table('vaccination_status')->where('country_name', '=', $request['country'])->latest('id')->get();
+
         return response()->json([$vaccination]);
     }
 
@@ -145,6 +176,8 @@ class CovidCasesController extends Controller
     {
 
         $country_cases = DB::table('bdcases')->where('country_case_name', '=', $request['country_cases'])->latest('id')->get();
+
+
         return response()->json([$country_cases]);
     }
 
@@ -184,7 +217,7 @@ class CovidCasesController extends Controller
     {
         $data = contacts::find($id);
         $data->delete();
-        return redirect('/con');
+        return redirect('/contacts');
     }
 
     public function updateContact($id)
@@ -206,7 +239,7 @@ class CovidCasesController extends Controller
             $data->whatsapp = $request->whatsapp;
 
             $data->save();
-            return redirect('/con');
+            return redirect('/contacts');
         }
 
         if ($request->has('links')) {
@@ -315,7 +348,11 @@ class CovidCasesController extends Controller
 
         if ($request->has('vaccinationUpdate')) {
 
-            $vaccineUpdate = vaccination_status::find($request->id);
+
+
+            $vaccineUpdate = vaccination_status::find($request->Vid);
+
+            // dd($vaccineUpdate);
 
 
             $vaccineUpdate->first_dose_taken = $request->firstdose;
@@ -337,12 +374,14 @@ class CovidCasesController extends Controller
 
         if ($request->has('vaccinationSubmit')) {
 
+            // dd($request);
+
             $validated = $request->validate([
-                'country' => 'required|string',
-                'firstdose' => 'required|numeric',
-                'bothdose' => 'required|numeric',
-                'above45' => 'required|numeric',
-                'below45' => 'required|numeric',
+                'country' => 'required|string|',
+                'firstdose' => 'required|integer|min:0',
+                'bothdose' => 'required|integer|min:0',
+                'above45' => 'required|integer|min:0',
+                'below45' => 'required|integer|min:0',
             ]);
 
             if ($validated) {
@@ -360,6 +399,6 @@ class CovidCasesController extends Controller
             }
         }
 
-        return redirect('/admin')->withMessage("Error");
+        return redirect('/admin');
     }
 }

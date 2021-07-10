@@ -10,6 +10,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -31,9 +33,33 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
 
+    <style>
+        #myBtn {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 10%;
+            z-index: 99;
+            font-size: 10px;
+            border: none;
+            outline: none;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            padding: 5px;
+            border: solid black;
+            border-radius: 8px;
+        }
+
+        #myBtn:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 
 <body>
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Scroll to Top</button>
 
     <nav class="navbar navbar-expand-sm" style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="#">
@@ -63,7 +89,29 @@
         </div>
     </div>
 
+    <div class="card text-center">
+        <p><strong>Quick Links</strong></p>
+        <span>
+            @foreach($bb as $item)
+            @if($item[0] || $item[1])
+            <a href="#{{$item[0] ? $item[0]->country_case_name : $item[1]->country_name}}">{{$item[0] ? $item[0]->country_case_name : $item[1]->country_name}} -</a>
+
+            @endif
+            @endforeach
+        </span>
+        <span>
+            <a href="#jumptoglobal">Global Cases</a> ||
+            <a href="#jumptonotice">Notice</a> ||
+            <a href="#jumptocontacts">Contacts</a>
+
+        </span>
+
+
+    </div>
+
+
     <div class="container-fluid">
+
 
 
 
@@ -75,6 +123,27 @@
                 <!-- <hr /> -->
 
                 <!-- Bangladesh Cases -->
+
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-md-12 col-12">
+                            <div id="chart_div" style="padding: 0px ;width: 100%; height: 400px;"></div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12 col-12">
+                            <div id="vaccination_chart" style="padding: 0px ;width: 100%; height: 400px;"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
 
 
                 <div class="jumbotron jumbotron-fluid">
@@ -210,7 +279,7 @@
                 <div class="content-header ">
                     <div class="container-fluid ">
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" id="{{$item[0] ? $item[0]->country_case_name : $item[1]->country_name}}">
                             <h3 class="text-center"> <strong>{{$item[0] ? $item[0]->country_case_name : $item[1]->country_name}} Cases</strong></h3>
                             <!-- <img src="{{asset('images\bangladesh.png')}}" alt="Logo" style="width:40px;"> -->
                         </div>
@@ -372,7 +441,7 @@
                 <div class="content-header ">
                     <div class="container-fluid ">
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" id="jumptoglobal">
                             <h3 class="text-center"><strong>Global Cases</strong></h3>
                         </div>
 
@@ -424,7 +493,7 @@
         </section>
         <hr />
 
-        <section class="content">
+        <section class="content" id="jumptonotice">
 
 
             <div class="row">
@@ -466,7 +535,7 @@
 
         <hr />
         <hr />
-        <section class="content">
+        <section class="content" id="jumptocontacts">
 
 
             <div class="row">
@@ -477,42 +546,7 @@
                             <h4 class="text-center">Emergency Contacts</h4>
                         </div>
                     </div>
-                    <!-- 
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table" border="4">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Designation</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Phone</th>
-                                            <th scope="col">WhatsApp</th>
 
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                        $counter = 1;
-                                        @endphp
-
-                                        @foreach($contacts as $item)
-                                        <tr>
-                                            <th scope="row">{{$counter++}}</th>
-                                            <td>{{$item->name}}</td>
-                                            <td>{{$item->designation}}</td>
-                                            <td><a href="mailto:{{$item->email}}">{{$item->email}}</a></td>
-                                            <td><a href="tel:{{$item->phone}}">{{$item->phone}}</a></td>
-                                            <td>{{$item->whatsapp}}</td>
-
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div> -->
 
 
                     <!-- <div class="card bg-light">
@@ -572,7 +606,7 @@
 
 
 
-                <div class="col">
+                <div class="col" id="usefulLinks">
 
                     <div class="card text-center bg-light">
                         <div class="card-body">
@@ -580,37 +614,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table" border="4">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">Link</th>
 
-
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                        $counter = 1;
-                                        @endphp
-                                        @foreach($links as $item)
-                                        <tr>
-                                            <th scope="row">{{$counter++}}</th>
-                                            <th>{{$item->title}}</th>
-
-                                            <td><a href={{$item->link}} target="_blank">{{$item->link}}</a></td>
-
-
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div> -->
 
                     <div class="col-lg-6 col-12">
                         @forelse($links as $item)
@@ -665,6 +669,167 @@
 
     </div>
 
+
+    <script>
+        //Get the button
+        var mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawVisualization);
+
+
+        // console.log(arrr);
+
+        var ppp = @json($bb);
+
+        bigarray = [
+            ['Country', 'Covid Detected', 'Recovered Staff', 'Deceased', 'Active Cases', '% of Infection']
+        ];
+        for (let i = 0; i < ppp.length; i++) {
+
+            if (ppp[i][0]) {
+                arr = [];
+                arr.push(ppp[i][0].country_case_name);
+                arr.push(ppp[i][0].totalInBD);
+                arr.push(ppp[i][0].totalHealed);
+                arr.push(ppp[i][0].totalDeath);
+                arr.push(ppp[i][0].activeCases);
+                arr.push(ppp[i][0].infectionRateTotal);
+
+                bigarray.push(arr);
+
+
+
+
+            }
+        }
+
+        // console.log(bigarray);
+
+        function drawVisualization() {
+            // Some raw data (not necessarily accurate)
+            var data = google.visualization.arrayToDataTable(bigarray);
+
+            var options = {
+                title: 'SACA Covid-19 Situation (Country Wise)',
+                vAxis: {
+                    title: 'Cases'
+                },
+                hAxis: {
+                    title: 'Country'
+                },
+                seriesType: 'bars',
+                legend: {
+                    position: 'in'
+                },
+                chartArea: {
+                    width: '90%',
+                    height: '65%'
+                },
+                series: {
+                    5: {
+                        type: 'line'
+                    }
+                }
+            };
+
+            var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+
+
+
+
+
+
+
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawVisualization);
+
+
+        // console.log(arrr);
+
+        var ppp = @json($bb);
+
+        vac_bigarray = [
+            ['Country', 'First Dose Taken', 'Above 45 Years', 'Below 45 Years', 'Both Dose Taken']
+        ];
+        for (let i = 0; i < ppp.length; i++) {
+
+            if (ppp[i][1]) {
+                arr = [];
+                arr.push(ppp[i][1].country_name);
+                arr.push(ppp[i][1].first_dose_taken);
+                arr.push(ppp[i][1].above_45);
+                arr.push(ppp[i][1].below_45);
+                arr.push(ppp[i][1].both_dose_taken);
+
+
+                vac_bigarray.push(arr);
+            }
+        }
+
+        // console.log(ppp[2][1]);
+
+        function drawVisualization() {
+
+            var data = google.visualization.arrayToDataTable(vac_bigarray);
+
+            var options = {
+                title: 'SACA Covid-19 Vaccination Status (Country Wise)',
+                vAxis: {
+                    title: 'Cases'
+                },
+                hAxis: {
+                    title: 'Country'
+                },
+                seriesType: 'bars',
+                legend: {
+                    position: 'in'
+                },
+                chartArea: {
+                    width: '90%',
+                    height: '65%'
+                },
+                series: {
+                    5: {
+                        type: 'line'
+                    }
+                }
+            };
+
+            var chart = new google.visualization.ComboChart(document.getElementById('vaccination_chart'));
+            chart.draw(data, options);
+        }
+    </script>
 
 
 

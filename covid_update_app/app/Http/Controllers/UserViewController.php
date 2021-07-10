@@ -34,6 +34,8 @@ class UserViewController extends Controller
         // $covid_cases = array();
         // $vaccine = array();
 
+        $bb = array();
+
         $country = country::all()->sortBy('country_name');
 
         $result = null;

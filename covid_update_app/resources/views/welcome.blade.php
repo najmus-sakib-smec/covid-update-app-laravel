@@ -918,55 +918,9 @@
             }
 
         }
-
-        // var arr = new Array();
-
-        // function count() {
-        //     var e = document.forms["bdcases"];
-        //     e = e.getElementsByTagName('input');
-        //     alert(e.length);
-        // }
-        // for (let i = 0; i < e.length; i++) {
-        //     var x = document.forms["bdcases"][i].value;
-        //     arr.push(x);
-
-        // }
-        // console.log(arr);
-        // if (x == "") {
-        //     alert("Name must be filled out");
-        //     return false;
-        // }
     </script>
 
-    <script>
-        // var arr = new Array();
-        // window.onload = function count() {
-        //     var e = document.forms["bdcases"];
-        //     e = e.getElementsByTagName('input');
 
-        //     for (let i = 0; i < e.length; i++) {
-        //         var x = document.forms["bdcases"][i].value;
-        //         arr.push(x);
-
-        //     }
-        //     alert(arr); // 6
-
-
-        // }
-
-
-        // $(document).ready(function() {
-        //     var clkBtn = "";
-        //     $('input[type="submit"]').click(function(evt) {
-        //         clkBtn = evt.target.id;
-        //     });
-
-        //     $("#bdcases").submit(function(evt) {
-        //         var btnID = clkBtn;
-        //         alert("form submitted; button id=" + btnID);
-        //     });
-        // });
-    </script>
 </body>
 
 </html>

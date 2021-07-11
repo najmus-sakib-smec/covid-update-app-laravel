@@ -64,7 +64,7 @@
     <nav class="navbar navbar-expand-sm" style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="#">
             <img src="{{asset('images\SJ_SJ_FC_RGB.png')}}" alt="Logo" style="width:150px; padding:10px">
-            <img src="{{asset('images\SMEC_LOGO.png')}}" alt="Logo" style="width:150px; padding:10px">
+            <img src="{{asset('images\SMEC_LOGO_NAVY.png')}}" alt="Logo" style="width:150px; padding:10px">
 
 
         </a>
@@ -139,6 +139,17 @@
                             <div id="vaccination_chart" style="padding: 0px ;width: 100%; height: 400px;"></div>
                         </div>
 
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 col-12">
+                            <div id="SacaInfectionRate" style="padding: 0px ;width: 100%; height: 400px;"></div>
+                        </div>
+
+                        <div class="col-md-6 col-12">
+                            <div id="SacaVaccinationPercent" style="padding: 0px ;width: 100%; height: 400px;"></div>
+                        </div>
                     </div>
 
                 </div>
@@ -709,6 +720,9 @@
         bigarray = [
             ['Country', 'Covid Detected', 'Recovered Staff', 'Deceased', 'Active Cases', '% of Infection']
         ];
+
+
+
         for (let i = 0; i < ppp.length; i++) {
 
             if (ppp[i][0]) {
@@ -719,6 +733,8 @@
                 arr.push(ppp[i][0].totalDeath);
                 arr.push(ppp[i][0].activeCases);
                 arr.push(ppp[i][0].infectionRateTotal);
+
+
 
                 bigarray.push(arr);
 
@@ -744,7 +760,11 @@
                 },
                 seriesType: 'bars',
                 legend: {
-                    position: 'in'
+                    position: 'bottom',
+                    textStyle: {
+
+                        fontSize: 12
+                    }
                 },
                 chartArea: {
                     width: '90%',
@@ -793,6 +813,8 @@
                 arr.push(ppp[i][1].both_dose_taken);
 
 
+
+
                 vac_bigarray.push(arr);
             }
         }
@@ -813,7 +835,11 @@
                 },
                 seriesType: 'bars',
                 legend: {
-                    position: 'in'
+                    position: 'bottom',
+                    textStyle: {
+
+                        fontSize: 12
+                    }
                 },
                 chartArea: {
                     width: '90%',
@@ -831,7 +857,164 @@
         }
     </script>
 
+    <!-- Pie Chart For Covid Infection Rate -->
 
+    <script type="text/javascript">
+        google.charts.load("current", {
+            packages: ["corechart"]
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        var ppp = @json($bb);
+
+
+
+
+        saca_infection_rate = [
+            ['Country', 'Infection_Rate']
+        ];
+
+
+        let staff = [
+            ['Afghanistan', 'Bangladesh', 'Georgia', 'India', 'Kazaksthan', 'Nepal', 'Pakistan', 'Srilanka', 'Tajikisthan'],
+            [17, 684, 40, 714, 112, 35, 362, 67, 4]
+
+        ];
+
+
+
+
+
+
+
+        for (let i = 0; i < ppp.length; i++) {
+
+
+
+            if (ppp[i][0]) {
+
+
+                for (let j = 0; j < staff[1].length; j++) {
+
+
+                    if (ppp[i][0].country_case_name == staff[0][j]) {
+
+
+                        percentInfection = [];
+
+                        percentInfection.push(ppp[i][0].country_case_name);
+                        percentInfection.push((ppp[i][0].totalInBD * 100) / staff[1][j]);
+
+                        saca_infection_rate.push(percentInfection);
+
+
+                    }
+
+
+
+                }
+            }
+        }
+
+        // console.log(saca_infection_rate);
+
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(saca_infection_rate);
+
+            var options = {
+                title: 'SACA Covid Infection Rate',
+                is3D: true,
+                legend: {
+                    position: 'bottom'
+                },
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('SacaInfectionRate'));
+            chart.draw(data, options);
+        }
+    </script>
+
+    <!-- Pie Chart For SACA % of Vaccination Status -->
+
+    <script type="text/javascript">
+        google.charts.load("current", {
+            packages: ["corechart"]
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+
+
+
+        var ppp = @json($bb);
+
+
+
+
+        saca_Vaccination_rate = [
+            ['Country', '% of Vaccination']
+        ];
+
+
+        // let staff = [
+        //     ['Afghanistan', 'Bangladesh', 'Georgia', 'India', 'Kazaksthan', 'Nepal', 'Pakistan', 'Srilanka', 'Tajikisthan'],
+        //     [17, 684, 40, 714, 112, 35, 362, 67, 4]
+
+        // ];
+
+
+
+
+
+
+
+        for (let i = 0; i < ppp.length; i++) {
+
+
+
+            if (ppp[i][1]) {
+
+
+                for (let j = 0; j < staff[1].length; j++) {
+
+
+                    if (ppp[i][1].country_name == staff[0][j]) {
+
+
+                        percentVaccination = [];
+
+                        percentVaccination.push(ppp[i][1].country_name);
+                        percentVaccination.push((ppp[i][1].both_dose_taken * 100) / staff[1][j]);
+
+                        saca_Vaccination_rate.push(percentVaccination);
+
+
+                    }
+
+
+
+                }
+            }
+        }
+
+
+        // console.log(saca_Vaccination_rate);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(saca_Vaccination_rate);
+
+            var options = {
+                title: 'SACA % of Vaccination',
+                is3D: true,
+                legend: {
+                    position: 'bottom'
+                },
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('SacaVaccinationPercent'));
+            chart.draw(data, options);
+        }
+    </script>
 
 
 </body>

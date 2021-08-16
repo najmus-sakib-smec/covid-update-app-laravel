@@ -84,8 +84,8 @@
 
     <div class="card text-center">
         <div class="card-body">
-            <h6>Country Cases Last updated at : <strong>{{$bdcases ? $bdcases ? $bdcases->updated_at : $bdcases->created_at : 'dd-mm-yy'}}</strong></h6>
-            <h6>Vaccination status Last updated at : <strong>{{$vac ? $vac ? $vac->updated_at : $vac->created_at : 'dd-mm-yy'}}</strong></h6>
+            <h6>Country Cases Last updated at : <strong>{{$bdcases ? \Carbon\Carbon::parse($bdcases->created_at)->greaterThan(\Carbon\Carbon::parse($bdcases->updated_at)) ? $bdcases->created_at . " (" . \Carbon\Carbon::parse($bdcases->created_at)->diffForHumans() . ")" . " " : $bdcases->updated_at . " (" . \Carbon\Carbon::parse($bdcases->updated_at)->diffForHumans() . ")" . " " : 'dd-mm-yy'}}</strong></h6>
+            <h6>Vaccination status Last updated at : <strong>{{$vac ? \Carbon\Carbon::parse($vac->created_at)->greaterThan(\Carbon\Carbon::parse($vac->updated_at)) ? $vac->created_at . " (" . \Carbon\Carbon::parse($vac->created_at)->diffForHumans() . ")" . " " : $vac->updated_at . " (" . \Carbon\Carbon::parse($vac->updated_at)->diffForHumans() . ")" . " " : 'dd-mm-yy'}}</strong></h6>
         </div>
     </div>
 

@@ -11,6 +11,7 @@ use App\Models\links;
 use App\Models\bdcases;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
+use App\Models\vaccination_status;
 
 
 
@@ -26,11 +27,15 @@ class UserViewController extends Controller
         $smecUpdate = DB::table('smec_update')->latest('id')->first();
 
 
-        $bdcases = DB::table('bdcases')->latest('id')->first();
+        $bdcases = bdcases::all()->sortByDesc('updated_at')->first();
         $smec_cases = DB::table('smec_cases')->latest('id')->first();
         $global_cases = DB::table('global_cases')->latest('id')->first();
-        $vac = DB::table('vaccination_status')->latest('id')->first();
+        $vac = vaccination_status::all()->sortByDesc('updated_at')->first();
 
+        // $bdcasestime = bdcases::all()->sortByDesc('updated_at')->first();
+        // $vacTime = vaccination_status::all()->sortByDesc('updated_at')->first();
+
+        // dd($bdcasestime);
         // $covid_cases = array();
         // $vaccine = array();
 

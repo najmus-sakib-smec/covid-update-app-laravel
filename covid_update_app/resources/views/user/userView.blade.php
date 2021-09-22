@@ -92,6 +92,7 @@
     <div class="card text-center">
         <p><strong>Quick Links</strong></p>
         <span>
+            <a href="#jumptoSmecCases">Smec Cases</a> ||
             @foreach($bb as $item)
             @if($item[0] || $item[1])
             <a href="#{{$item[0] ? $item[0]->country_case_name : $item[1]->country_name}}">{{$item[0] ? $item[0]->country_case_name : $item[1]->country_name}} -</a>
@@ -167,7 +168,7 @@
                     <div class="content-header ">
                         <div class="container-fluid ">
 
-                            <div class="col-sm-12">
+                            <div class="col-sm-12" id="jumptoSmecCases">
                                 <h3 class="text-center"><strong>SMEC Cases</strong></h3>
                             </div>
 
@@ -275,6 +276,25 @@
                                 <div class="small-box">
 
                                     <h4 style="color:red;" class="small-box-footer"><strong> Active Cases</strong></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-6 mx-auto">
+
+                        <div class="card bg-info">
+                            <div class="card-body text-center">
+                                <p>Total Vaccinated 1st Dose-<strong>{{$sum1}}</strong> || Total Vaccinated Both Dose -<strong>{{$sum2}}</strong></p>
+                                <p></p>
+                                <!-- <p>Both Dose Taken-<strong>{{$item[1] ? $item[1]->both_dose_taken : ''}}</strong></p> -->
+
+                                <p>Above 45 Years-<strong>{{$sumAbove45}}</strong> || Below 45 Years-<strong>{{$sumBelow45}}</strong></p>
+
+                                <div class="small-box">
+
+                                    <h4 href="#" class="small-box-footer"><strong> Vaccination Status </strong></h4>
                                 </div>
                             </div>
                         </div>

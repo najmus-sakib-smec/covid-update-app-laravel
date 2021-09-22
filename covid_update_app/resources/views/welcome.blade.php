@@ -784,6 +784,7 @@
                             document.getElementById("bothdose").value = value[0] ? value[0]['both_dose_taken'] : '';
                             document.getElementById("above45").value = value[0] ? value[0]['above_45'] : '';
                             document.getElementById("below45").value = value[0] ? value[0]['below_45'] : '';
+                            // document.getElementById("vaccinationSubmit").disabled = value[0] ? true : false ;
                         });
 
                     }
